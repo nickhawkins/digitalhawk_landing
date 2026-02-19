@@ -20,6 +20,6 @@ window.DH_CONFIG = {
   formEndpoint: "https://formspree.io/f/mzdaadgn",
 
   // Replace with your Google Ads account ID and conversion label
-  googleAdsId: "AW-898-668-6048",
+  googleAdsId: "AW-17947307406",
   googleAdsConversionLabel: "AW-17947307406"
 };

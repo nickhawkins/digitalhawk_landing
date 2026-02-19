@@ -14,12 +14,12 @@
 window.DH_CONFIG = {
   brandName: "Digital Hawk",
   website: "https://digitalhawk.ai",
-  supportEmail: "support@digitalhawk.ai",
+  supportEmail: "nick@digitalhawk.ai",
 
   // Replace with your Formspree endpoint (or your own backend endpoint)
-  formEndpoint: "https://formspree.io/f/REPLACE_ME",
+  formEndpoint: "https://formspree.io/f/mzdaadgn",
 
   // Replace with your Google Ads account ID and conversion label
-  googleAdsId: "AW-REPLACE_ME",
-  googleAdsConversionLabel: "REPLACE_ME"
+  googleAdsId: "AW-898-668-6048",
+  googleAdsConversionLabel: "W-17947307406"
 };

@@ -21,5 +21,5 @@ window.DH_CONFIG = {
 
   // Replace with your Google Ads account ID and conversion label
   googleAdsId: "AW-898-668-6048",
-  googleAdsConversionLabel: "W-17947307406"
+  googleAdsConversionLabel: "AW-17947307406"
 };

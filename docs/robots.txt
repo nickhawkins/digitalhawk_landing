@@ -1,4 +1,0 @@
-User-agent: *
-Allow: /
-
-Sitemap: https://digitalhawk.ai/sitemap.xml

@@ -1,232 +1,222 @@
-/* Digital Hawk — lightweight frontend helpers
-   - loads Google tag (gtag) for Ads
-   - captures gclid + UTM params to hidden fields
-   - submits scan forms to DH_CONFIG.formEndpoint then redirects to email/thanks
-*/
+/* =========================================================
+   Digital Hawk — tiny site script
+   - captures gclid + UTMs
+   - personalises headline via ?issue=
+   - posts form to endpoint, then redirects to email/?submitted=1
+   ========================================================= */
 
 (function () {
-  "use strict";
+  const CFG = window.DH_CONFIG || {};
 
-  var CFG = (window.DH_CONFIG || {});
-  var PARAM_KEYS = ["gclid", "utm_source", "utm_medium", "utm_campaign", "utm_term", "utm_content"];
-
-  function nowMs() { return Date.now ? Date.now() : new Date().getTime(); }
-
-  function safeGetStorage(storage, key) {
-    try { return storage.getItem(key); } catch (e) { return null; }
-  }
-  function safeSetStorage(storage, key, value) {
-    try { storage.setItem(key, value); } catch (e) {}
+  function qs(sel, root) {
+    return (root || document).querySelector(sel);
   }
 
-  function readParamsFromUrl() {
-    var out = {};
+  function getUrlParams() {
+    const p = new URLSearchParams(window.location.search || "");
+    const obj = {
+      gclid: p.get("gclid") || "",
+      utm_source: p.get("utm_source") || "",
+      utm_medium: p.get("utm_medium") || "",
+      utm_campaign: p.get("utm_campaign") || "",
+      utm_term: p.get("utm_term") || "",
+      utm_content: p.get("utm_content") || "",
+      issue: p.get("issue") || ""
+    };
+    return obj;
+  }
+
+  function storeParams(params) {
     try {
-      var sp = new URLSearchParams(window.location.search || "");
-      PARAM_KEYS.forEach(function (k) {
-        var v = sp.get(k);
-        if (v) out[k] = v;
+      const existing = JSON.parse(localStorage.getItem("dh_params") || "{}") || {};
+      const merged = { ...existing };
+      Object.keys(params).forEach((k) => {
+        if (params[k]) merged[k] = params[k];
       });
-    } catch (e) {}
-    return out;
+      localStorage.setItem("dh_params", JSON.stringify(merged));
+      return merged;
+    } catch {
+      return params;
+    }
   }
 
   function readStoredParams() {
-    var raw = safeGetStorage(window.localStorage, "dh_params_v1");
-    if (!raw) return {};
     try {
-      var obj = JSON.parse(raw);
-      // Expire after 30 days
-      if (obj && obj._ts && (nowMs() - obj._ts) > (30 * 24 * 60 * 60 * 1000)) return {};
-      return obj || {};
-    } catch (e) {
+      return JSON.parse(localStorage.getItem("dh_params") || "{}") || {};
+    } catch {
       return {};
     }
   }
 
-  function storeParams(params) {
-    var existing = readStoredParams();
-    var merged = Object.assign({}, existing, params);
-    merged._ts = nowMs();
-    safeSetStorage(window.localStorage, "dh_params_v1", JSON.stringify(merged));
-    return merged;
-  }
+  function applyIssueCopy(issue) {
+    const badgeEl = qs("#dhBadge");
+    const hEl = qs("#dhHeadline");
+    const sEl = qs("#dhSubhead");
 
-  function applyHiddenFields(params) {
-    // Fill any <input type="hidden" name="utm_source" ...> etc
-    PARAM_KEYS.forEach(function (k) {
-      var els = document.querySelectorAll('input[type="hidden"][name="' + k + '"]');
-      els.forEach(function (el) { el.value = params[k] || ""; });
-    });
+    if (!hEl || !sEl) return;
 
-    // Helpful extra fields
-    var extras = {
-      landing_path: window.location.pathname,
-      landing_url: window.location.href,
-      referrer: document.referrer || "",
-      user_timezone: Intl && Intl.DateTimeFormat ? Intl.DateTimeFormat().resolvedOptions().timeZone : ""
+    const map = {
+      "550-5-7-515": {
+        badge: "Outlook / Microsoft rejection",
+        h: "Fix Outlook 550 5.7.515 rejections",
+        s: "Free scan: find the auth/compliance blocker and get the fastest fix path."
+      },
+      "5-7-26": {
+        badge: "Gmail rejection",
+        h: "Fix Gmail 5.7.26 rejections",
+        s: "Free scan: identify what Gmail is rejecting and what to change next."
+      },
+      "spf": {
+        badge: "SPF issue",
+        h: "Fix SPF blockers causing rejections",
+        s: "PermError, too many DNS lookups, multiple records — we’ll pinpoint the cause."
+      },
+      "dmarc": {
+        badge: "DMARC issue",
+        h: "Fix DMARC missing/invalid issues",
+        s: "Free scan: publish a valid DMARC record and align SPF/DKIM correctly."
+      },
+      "spf-dmarc": {
+        badge: "SPF / DKIM / DMARC",
+        h: "Stop email rejections caused by SPF/DKIM/DMARC",
+        s: "Free scan + fix plan. Submit your domain + the bounce text (optional)."
+      }
     };
 
-    Object.keys(extras).forEach(function (k) {
-      var els = document.querySelectorAll('input[type="hidden"][name="' + k + '"]');
-      els.forEach(function (el) { el.value = extras[k] || ""; });
+    const v = (issue || "").trim();
+    const key = map[v] ? v : "";
+    if (!key) return;
+
+    if (badgeEl) badgeEl.textContent = map[key].badge;
+    hEl.textContent = map[key].h;
+    sEl.textContent = map[key].s;
+  }
+
+  function setHidden(form, name, value) {
+    const el = form.querySelector(`input[name="${name}"]`);
+    if (el) el.value = value || "";
+  }
+
+  function looksConfiguredEndpoint(endpoint) {
+    if (!endpoint) return false;
+    if (endpoint.includes("REPLACE_ME")) return false;
+    if (!/^https?:\/\//i.test(endpoint)) return false;
+    return true;
+  }
+
+  async function postForm(form) {
+    const endpoint = (CFG.formEndpoint || "").trim();
+    const statusEl = form.querySelector("[data-dh-status]");
+
+    if (!looksConfiguredEndpoint(endpoint)) {
+      if (statusEl) statusEl.textContent = "Set your form endpoint in assets/config.js";
+      return;
+    }
+
+    // Ensure action is set for fallback
+    form.action = endpoint;
+    form.method = "POST";
+
+    const fd = new FormData(form);
+    const res = await fetch(endpoint, {
+      method: "POST",
+      body: fd,
+      headers: { "Accept": "application/json" }
     });
-  }
 
-  function setTextById(id, text) {
-    var el = document.getElementById(id);
-    if (el) el.textContent = text;
-  }
-
-  // Google tag (gtag) loader for Ads
-  function loadGoogleTag() {
-    if (!CFG.googleAdsId || CFG.googleAdsId.indexOf("AW-") !== 0 || CFG.googleAdsId.indexOf("REPLACE") !== -1) return;
-
-    window.dataLayer = window.dataLayer || [];
-    window.gtag = window.gtag || function () { window.dataLayer.push(arguments); };
-    window.gtag("js", new Date());
-    window.gtag("config", CFG.googleAdsId);
-
-    var s = document.createElement("script");
-    s.async = true;
-    s.src = "https://www.googletagmanager.com/gtag/js?id=" + encodeURIComponent(CFG.googleAdsId);
-    document.head.appendChild(s);
-  }
-
-  function fireConversionIfThanksPage() {
-    if (!window.gtag) return;
-    if (!CFG.googleAdsConversionLabel || CFG.googleAdsConversionLabel.indexOf("REPLACE") !== -1) return;
-
-    var path = (window.location.pathname || "").replace(/\/+$/, "");
-    if (/\/email\/thanks$/.test(path)) {
-      window.gtag("event", "conversion", {
-        send_to: CFG.googleAdsId + "/" + CFG.googleAdsConversionLabel
-      });
+    if (!res.ok) {
+      let msg = "Something went wrong. Please try again.";
+      try {
+        const json = await res.json();
+        if (json && json.errors && json.errors[0] && json.errors[0].message) msg = json.errors[0].message;
+      } catch {}
+      if (statusEl) statusEl.textContent = msg;
+      throw new Error(msg);
     }
   }
 
-  function siteRootPrefix() {
-    var path = window.location.pathname || "/";
-    var markers = ["/email/", "/contact/", "/privacy/"];
-
-    for (var i = 0; i < markers.length; i += 1) {
-      var idx = path.indexOf(markers[i]);
-      if (idx !== -1) return path.slice(0, idx + 1);
-    }
-
-    var exactMarkers = ["/email", "/contact", "/privacy"];
-    for (var j = 0; j < exactMarkers.length; j += 1) {
-      if (path === exactMarkers[j]) return "/";
-      if (path.endsWith(exactMarkers[j])) {
-        return path.slice(0, path.length - exactMarkers[j].length) || "/";
-      }
-    }
-
-    if (path.endsWith("/")) return path;
-    var lastSlash = path.lastIndexOf("/");
-    return lastSlash >= 0 ? path.slice(0, lastSlash + 1) : "/";
-  }
-
-  function toSitePath(relativePath) {
-    var clean = (relativePath || "").replace(/^\/+/, "");
-    var prefix = siteRootPrefix();
-    if (!prefix.endsWith("/")) prefix += "/";
-    return prefix + clean;
-  }
-
-  // Form submission
-  function initScanForms(params) {
-    var forms = document.querySelectorAll('form[data-dh-form="scan"]');
+  function initForms(params) {
+    const forms = Array.from(document.querySelectorAll("[data-dh-form]"));
     if (!forms.length) return;
 
-    forms.forEach(function (form) {
-      // Fill support email if present
-      var replyTo = form.querySelector('input[name="_replyto"]');
-      if (replyTo && !replyTo.value) {
-        // (This field name is supported by some form providers; safe to include.)
+    forms.forEach((form) => {
+      // Set action from config
+      const endpoint = (CFG.formEndpoint || "").trim();
+      if (looksConfiguredEndpoint(endpoint)) {
+        form.action = endpoint;
+        form.method = "POST";
       }
 
-      form.addEventListener("submit", async function (e) {
-        // If endpoint isn't configured, allow normal submission (or block with message)
-        var endpoint = CFG.formEndpoint || "";
-        if (!endpoint || endpoint.indexOf("REPLACE") !== -1) return;
+      // Fill hidden tracking fields
+      const page = window.location.pathname + window.location.search;
+      const issue = (params.issue || "").trim();
 
+      setHidden(form, "gclid", params.gclid);
+      setHidden(form, "utm_source", params.utm_source);
+      setHidden(form, "utm_medium", params.utm_medium);
+      setHidden(form, "utm_campaign", params.utm_campaign);
+      setHidden(form, "utm_term", params.utm_term);
+      setHidden(form, "utm_content", params.utm_content);
+      setHidden(form, "page", page);
+      setHidden(form, "issue", issue || "general");
+
+      // Also reflect issue into the textarea placeholder (optional)
+      const b = form.querySelector("textarea[name='error']");
+      if (b && issue && !b.value) {
+        b.placeholder = `Paste the bounce/error message (optional)\n\nExample: ${issue}`;
+      }
+
+      const btn = form.querySelector("button[type='submit']");
+      const statusEl = form.querySelector("[data-dh-status]");
+      const thanks = form.getAttribute("data-thanks") || "./?submitted=1";
+
+      form.addEventListener("submit", async (e) => {
         e.preventDefault();
-
-        var btn = form.querySelector('button[type="submit"]');
-        var status = form.querySelector('[data-dh-status]');
-        if (btn) { btn.disabled = true; btn.dataset._orig = btn.textContent; btn.textContent = "Submitting…"; }
-        if (status) status.textContent = "";
+        if (statusEl) statusEl.textContent = "";
+        if (btn) btn.disabled = true;
 
         try {
-          var fd = new FormData(form);
-
-          // Ensure params are included (in case hidden fields were added after initial paint)
-          PARAM_KEYS.forEach(function (k) {
-            if (!fd.get(k) && params[k]) fd.set(k, params[k]);
-          });
-
-          var res = await fetch(endpoint, {
-            method: "POST",
-            body: fd,
-            headers: { "Accept": "application/json" }
-          });
-
-          if (res.ok) {
-            window.location.href = toSitePath("email/thanks/");
-            return;
-          }
-
-          // Try to extract JSON error
-          var msg = "Something went wrong. Please email " + (CFG.supportEmail || "support@digitalhawk.ai") + ".";
-          try {
-            var j = await res.json();
-            if (j && j.error) msg = j.error;
-          } catch (err) {}
-
-          if (status) status.textContent = msg;
-        } catch (err2) {
-          if (status) status.textContent = "Network error. Please try again or email " + (CFG.supportEmail || "support@digitalhawk.ai") + ".";
-        } finally {
-          if (btn) { btn.disabled = false; btn.textContent = btn.dataset._orig || "Submit"; }
+          await postForm(form);
+          window.location.href = thanks;
+        } catch {
+          if (btn) btn.disabled = false;
         }
       });
     });
   }
 
-  function boot() {
-    // Dynamic year
-    var y = new Date().getFullYear();
-    setTextById("dhYear", String(y));
+  function initYear() {
+    const y = qs("#dhYear");
+    if (y) y.textContent = String(new Date().getFullYear());
+  }
 
-    // Capture URL params then persist to localStorage
-    var fromUrl = readParamsFromUrl();
-    var merged = storeParams(fromUrl);
-
-    // Fill hidden fields (forms may exist on multiple pages)
-    applyHiddenFields(merged);
-
-    // Load Ads tag and fire conversion if on /email/thanks
-    loadGoogleTag();
-    fireConversionIfThanksPage();
-
-    // Hook scan forms
-    initScanForms(merged);
-
-    // Fill email placeholders
-    var emailEls = document.querySelectorAll("[data-dh-email]");
-    emailEls.forEach(function (el) {
-      if (CFG.supportEmail) el.textContent = CFG.supportEmail;
-    });
-    var emailLinks = document.querySelectorAll('a[data-dh-email-link]');
-    emailLinks.forEach(function (a) {
-      if (CFG.supportEmail) a.href = "mailto:" + CFG.supportEmail;
+  function initSupportEmail() {
+    const email = (CFG.supportEmail || "").trim();
+    if (!email) return;
+    document.querySelectorAll("[data-dh-email]").forEach((el) => {
+      el.textContent = email;
+      if (el.tagName.toLowerCase() === "a") el.setAttribute("href", `mailto:${email}`);
     });
   }
 
-  if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", boot);
-  } else {
-    boot();
+  function initSubmittedNotice() {
+    const p = new URLSearchParams(window.location.search || "");
+    if (p.get("submitted") !== "1") return;
+    const status = qs("[data-dh-status]");
+    if (status) {
+      status.textContent = "Thanks, your request was submitted successfully.";
+    }
   }
+
+  document.addEventListener("DOMContentLoaded", function () {
+    const stored = storeParams(getUrlParams());
+    const params = { ...readStoredParams(), ...stored };
+
+    initYear();
+    initSupportEmail();
+
+    applyIssueCopy(params.issue);
+    initForms(params);
+    initSubmittedNotice();
+  });
 })();

@@ -1,1175 +1,1082 @@
-<!doctype html>
-<html lang="en-GB">
+<!DOCTYPE html>
+<html lang="en">
 <head>
-  <meta charset="utf-8">
+  <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-
-  <title>Digital Hawk | Product-page Sales Assistants</title>
-  <meta
-    name="description"
-    content="Digital Hawk builds and manages product-page Sales Assistants for ecommerce stores selling technical, configurable and high-value products."
-  >
-  <link rel="canonical" href="https://digitalhawk.ai/">
-  <meta name="theme-color" content="#18221d">
+  <title>Website feedback for ClickUp agencies | Digital Hawk</title>
+  <meta name="description" content="Explore Digital Hawk’s planned website-feedback tool for agencies using ClickUp. An illustrative workflow demo. Proposed price: $79 USD/month.">
+  <meta name="theme-color" content="#113e36">
+  <!-- Draft only: remove when the page is ready for public indexing. -->
+  <meta name="robots" content="noindex, nofollow">
 
   <style>
     :root {
-      --ink: #18221d;
-      --text: #33413a;
-      --muted: #69766f;
-      --green: #16855b;
-      --green-dark: #0f6847;
-      --green-soft: #edf7f2;
-      --paper: #f4f6f3;
-      --white: #ffffff;
-      --line: #dce3de;
-      --line-dark: #cbd5ce;
-      --max: 1180px;
-      --shadow: 0 18px 50px rgba(24, 34, 29, 0.075);
-      --shadow-small: 0 8px 24px rgba(24, 34, 29, 0.055);
+      color-scheme: light;
+      --bg: #f8fafc;
+      --paper: #ffffff;
+      --ink: #0f172a;
+      --muted: #475569;
+      --teal: #113e36;
+      --teal-hover: #195346;
+      --mint: #eaf4ef;
+      --line: #e2e8f0;
+      --field-line: #94a3b8;
+      --focus: #0f766e;
+      --radius: 24px;
+      --shadow: 0 24px 70px -38px rgb(15 23 42 / 25%);
     }
 
-    * {
-      box-sizing: border-box;
-    }
-
-    html {
-      scroll-behavior: smooth;
-      background: var(--paper);
-    }
-
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; scroll-padding-top: 96px; }
     body {
       margin: 0;
-      color: var(--text);
-      background: var(--paper);
-      font-family:
-        Inter,
-        ui-sans-serif,
-        system-ui,
-        -apple-system,
-        BlinkMacSystemFont,
-        "Segoe UI",
-        sans-serif;
-      line-height: 1.55;
+      background: var(--bg);
+      color: var(--ink);
+      font: 16px/1.65 -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       -webkit-font-smoothing: antialiased;
-      text-rendering: optimizeLegibility;
     }
-
-    a {
-      color: inherit;
+    button, input, select, textarea { font: inherit; }
+    button, a { -webkit-tap-highlight-color: transparent; }
+    button { cursor: pointer; }
+    a { color: inherit; }
+    svg { display: block; flex-shrink: 0; }
+    h1, h2, h3, p { margin-top: 0; }
+    h1, h2, h3 { line-height: 1.15; letter-spacing: -.04em; }
+    h2 { font-size: clamp(2rem, 4vw, 3rem); margin-bottom: 20px; }
+    h3 { font-size: 1.3rem; }
+    p { margin-bottom: 18px; }
+    [hidden] { display: none !important; }
+    :focus-visible { outline: 3px solid var(--focus); outline-offset: 4px; }
+    ::selection { background: #cfe7db; color: var(--teal); }
+    ::placeholder { color: #64748b; opacity: 1; }
+    .wrap { width: min(1120px, calc(100% - 48px)); margin-inline: auto; }
+    .muted { color: var(--muted); }
+    .small { font-size: .875rem; line-height: 1.65; }
+    .eyebrow {
+      display: block;
+      font-size: .8125rem;
+      font-weight: 750;
+      letter-spacing: .1em;
+      text-transform: uppercase;
     }
-
-    button,
-    input {
-      font: inherit;
+    .section { padding: 96px 0; }
+    .section-heading { max-width: 680px; margin-bottom: 38px; }
+    .section-heading .eyebrow { color: var(--teal); margin-bottom: 14px; }
+    .skip {
+      position: fixed; top: -100px; left: 16px; z-index: 99;
+      background: white; padding: 12px 18px; border-radius: 8px;
     }
-
-    .container {
-      width: min(calc(100% - 40px), var(--max));
-      margin: 0 auto;
-    }
-
-    .site-header {
-      position: sticky;
-      top: 0;
-      z-index: 50;
-      border-bottom: 1px solid var(--line);
-      background: rgba(255, 255, 255, 0.94);
-      backdrop-filter: blur(12px);
-    }
-
-    .nav {
-      min-height: 68px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 24px;
-    }
-
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 11px;
-      color: var(--ink);
-      text-decoration: none;
-      font-size: 15px;
-      font-weight: 800;
-      letter-spacing: -0.02em;
-    }
-
-    .brand-mark {
-      width: 34px;
-      height: 34px;
-      display: grid;
-      place-items: center;
-      border-radius: 8px;
-      background: var(--ink);
-      color: var(--white);
-      font-size: 11px;
-      font-weight: 900;
-      letter-spacing: 0.04em;
-    }
-
-    .nav-links {
-      display: flex;
-      align-items: center;
-      gap: 25px;
-      color: var(--muted);
-      font-size: 14px;
-      font-weight: 650;
-    }
-
-    .nav-links a {
-      text-decoration: none;
-    }
-
-    .nav-links a:hover {
-      color: var(--ink);
-    }
-
+    .skip:focus { top: 16px; }
     .button {
-      min-height: 48px;
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      padding: 0 22px;
-      border: 0;
-      border-radius: 9px;
-      background: var(--green);
-      color: var(--white);
-      text-decoration: none;
-      font-size: 14px;
-      font-weight: 800;
-      cursor: pointer;
-      box-shadow: 0 10px 24px rgba(22, 133, 91, 0.19);
-      transition:
-        transform 140ms ease,
-        background 140ms ease,
-        box-shadow 140ms ease;
-    }
-
-    .button:hover {
-      transform: translateY(-1px);
-      background: var(--green-dark);
-      box-shadow: 0 13px 28px rgba(22, 133, 91, 0.23);
-    }
-
-    .button.secondary {
-      border: 1px solid var(--line-dark);
-      background: var(--white);
-      color: var(--ink);
-      box-shadow: none;
-    }
-
-    .button.secondary:hover {
-      background: #fafbf9;
-      box-shadow: none;
-    }
-
-    .hero {
-      padding: 38px 0 32px;
-    }
-
-    .hero-panel {
-      display: grid;
-      grid-template-columns: minmax(0, 1.02fr) minmax(420px, 0.8fr);
-      align-items: center;
-      gap: 72px;
-      padding: 76px 72px;
-      border: 1px solid var(--line);
-      background: var(--white);
-      box-shadow: var(--shadow);
-    }
-
-    .hero h1 {
-      max-width: 760px;
-      margin: 0;
-      color: var(--ink);
-      font-size: clamp(48px, 5.7vw, 72px);
-      line-height: 0.99;
-      letter-spacing: -0.052em;
-    }
-
-    .hero-lead {
-      max-width: 690px;
-      margin: 27px 0 0;
-      color: var(--muted);
-      font-size: clamp(18px, 1.8vw, 21px);
-      line-height: 1.58;
-    }
-
-    .hero-copy {
-      max-width: 680px;
-      margin: 14px 0 0;
-      color: var(--muted);
-      font-size: 16px;
-      line-height: 1.75;
-    }
-
-    .hero-actions {
-      display: flex;
-      flex-wrap: wrap;
       gap: 12px;
-      margin-top: 31px;
-    }
-
-    .hero-facts {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 24px;
-      margin-top: 42px;
-      padding-top: 25px;
-      border-top: 1px solid var(--line);
-    }
-
-    .hero-facts strong {
-      display: block;
-      color: var(--ink);
-      font-size: 14px;
-    }
-
-    .hero-facts span {
-      display: block;
-      margin-top: 3px;
-      color: var(--muted);
-      font-size: 13px;
-    }
-
-    .product-demo {
-      border: 1px solid var(--line);
-      border-radius: 14px;
-      background: var(--white);
-      box-shadow: var(--shadow);
-      overflow: hidden;
-    }
-
-    .product-demo-main {
-      display: grid;
-      grid-template-columns: 142px minmax(0, 1fr);
-      gap: 22px;
-      padding: 23px;
-      border-bottom: 1px solid var(--line);
-    }
-
-    .product-image {
-      min-height: 160px;
-      display: grid;
-      place-items: center;
-      border-radius: 10px;
-      background: #f1f4f1;
-    }
-
-    .product-image svg {
-      width: 82px;
-      height: 82px;
-      color: #557064;
-    }
-
-    .product-title {
-      margin: 1px 0 0;
-      color: var(--ink);
-      font-size: 22px;
-      line-height: 1.22;
-      letter-spacing: -0.025em;
-    }
-
-    .product-subtitle {
-      margin: 8px 0 0;
-      color: var(--muted);
-      font-size: 13px;
-      line-height: 1.55;
-    }
-
-    .field-label {
-      display: block;
-      margin-top: 18px;
-      color: var(--muted);
-      font-size: 11px;
-      font-weight: 800;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-    }
-
-    .option-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin-top: 8px;
-    }
-
-    .option {
-      min-height: 36px;
-      padding: 0 12px;
-      border: 1px solid var(--line-dark);
-      border-radius: 7px;
-      background: var(--white);
-      color: var(--text);
-      font-size: 12px;
-      font-weight: 750;
-    }
-
-    .option.selected {
-      border-color: var(--green);
-      background: var(--green-soft);
-      color: var(--green-dark);
-    }
-
-    .recommendation {
-      padding: 22px 23px 23px;
-      background: #fafbf9;
-    }
-
-    .recommendation-top {
-      display: flex;
-      align-items: flex-start;
-      justify-content: space-between;
-      gap: 20px;
-    }
-
-    .recommendation-label {
-      color: var(--green-dark);
-      font-size: 11px;
-      font-weight: 900;
-      letter-spacing: 0.09em;
-      text-transform: uppercase;
-    }
-
-    .recommendation-name {
-      margin: 5px 0 0;
-      color: var(--ink);
-      font-size: 19px;
-      font-weight: 850;
-      letter-spacing: -0.02em;
-    }
-
-    .valid-badge {
-      flex: 0 0 auto;
-      padding: 5px 10px;
-      border-radius: 999px;
-      background: var(--green-soft);
-      color: var(--green-dark);
-      font-size: 11px;
-      font-weight: 850;
-    }
-
-    .recommendation-bottom {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 20px;
-      margin-top: 21px;
-      padding-top: 18px;
-      border-top: 1px solid var(--line);
-    }
-
-    .price small {
-      display: block;
-      color: var(--muted);
-      font-size: 11px;
-    }
-
-    .price strong {
-      display: block;
-      margin-top: 2px;
-      color: var(--ink);
-      font-size: 26px;
-      line-height: 1;
-      letter-spacing: -0.035em;
-    }
-
-    .basket-button {
-      width: 100%;
-      min-height: 43px;
-      padding: 0 18px;
-      border: 0;
-      border-radius: 8px;
-      background: black;
-      color: var(--white);
-      font-size: 13px;
-      font-weight: 850;
-      cursor: default;
-    }
-
-    .section {
-      padding: 32px 0;
-    }
-
-    .section-panel {
-      padding: 72px;
-      border: 1px solid var(--line);
-      background: var(--white);
-      box-shadow: var(--shadow-small);
-    }
-
-    .section-panel.soft {
-      background: #fafbf9;
-    }
-
-    .section-kicker {
-      margin: 0 0 13px;
-      color: var(--green-dark);
-      font-size: 12px;
-      font-weight: 850;
-      letter-spacing: 0.09em;
-      text-transform: uppercase;
-    }
-
-    .section h2 {
-      max-width: 820px;
-      margin: 0;
-      color: var(--ink);
-      font-size: clamp(36px, 4vw, 52px);
-      line-height: 1.07;
-      letter-spacing: -0.043em;
-    }
-
-    .section-intro {
-      max-width: 790px;
-      margin: 20px 0 0;
-      color: var(--muted);
-      font-size: 18px;
-      line-height: 1.7;
-    }
-
-    .feature-grid {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      column-gap: 40px;
-      row-gap: 0;
-      margin-top: 50px;
-      border-top: 1px solid var(--line);
-    }
-
-    .feature {
-      padding: 28px 0 30px;
-      border-bottom: 1px solid var(--line);
-    }
-
-    .feature:nth-child(3n + 2),
-    .feature:nth-child(3n + 3) {
-      padding-left: 20px;
-    }
-
-    .feature-number {
-      color: var(--green);
-      font-size: 12px;
-      font-weight: 900;
-      letter-spacing: 0.08em;
-    }
-
-    .feature h3 {
-      margin: 12px 0 0;
-      color: var(--ink);
-      font-size: 20px;
-      line-height: 1.28;
-      letter-spacing: -0.025em;
-    }
-
-    .feature p {
-      margin: 9px 0 0;
-      color: var(--muted);
-      font-size: 15px;
-      line-height: 1.68;
-    }
-
-    .pilot-layout {
-      display: grid;
-      grid-template-columns: 0.82fr 1.18fr;
-      gap: 68px;
-      align-items: start;
-    }
-
-    .pilot-offer {
-      margin-top: 30px;
-      padding: 22px;
-      border-left: 3px solid var(--green);
-      background: var(--green-soft);
-    }
-
-    .pilot-offer strong {
-      display: block;
-      color: var(--green-dark);
-      font-size: 14px;
-    }
-
-    .pilot-offer span {
-      display: block;
-      margin-top: 5px;
-      color: var(--ink);
-      font-size: 18px;
-      font-weight: 780;
-    }
-
-    .steps {
-      display: grid;
-      gap: 0;
-      border-top: 1px solid var(--line);
-    }
-
-    .step {
-      display: grid;
-      grid-template-columns: 44px 1fr;
-      gap: 18px;
-      padding: 27px 0;
-      border-bottom: 1px solid var(--line);
-    }
-
-    .step-number {
-      color: var(--green);
-      font-size: 28px;
-      font-weight: 750;
-      line-height: 1;
-    }
-
-    .step h3 {
-      margin: 0;
-      color: var(--ink);
-      font-size: 19px;
-      letter-spacing: -0.02em;
-    }
-
-    .step p {
-      margin: 7px 0 0;
-      color: var(--muted);
-      font-size: 15px;
-      line-height: 1.68;
-    }
-
-    .managed-panel {
-      display: grid;
-      grid-template-columns: 1.12fr 0.55fr;
-      overflow: hidden;
-      border: 1px solid var(--ink);
-      background: var(--ink);
-      color: var(--white);
-      box-shadow: var(--shadow);
-    }
-
-    .managed-main {
-      padding: 72px;
-    }
-
-    .managed-main .section-kicker {
-      color: #8dd8bb;
-    }
-
-    .managed-main h2 {
-      color: var(--white);
-    }
-
-    .managed-main .section-intro {
-      color: #bdc9c2;
-    }
-
-    .managed-list {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 0 36px;
-      margin-top: 38px;
-      border-top: 1px solid rgba(255, 255, 255, 0.14);
-    }
-
-    .managed-list p {
-      margin: 0;
-      padding: 16px 0;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.14);
-      color: #c5d0ca;
-      font-size: 14px;
-    }
-
-    .managed-price {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      padding: 56px 44px;
-      border-left: 1px solid rgba(255, 255, 255, 0.14);
-      background: rgba(255, 255, 255, 0.035);
-    }
-
-    .managed-price small {
-      color: #98a89f;
-      font-size: 11px;
-      font-weight: 850;
-      letter-spacing: 0.09em;
-      text-transform: uppercase;
-    }
-
-    .managed-price strong {
-      margin-top: 13px;
-      color: var(--white);
-      font-size: 60px;
-      line-height: 1;
-      letter-spacing: -0.055em;
-    }
-
-    .managed-price span {
-      margin-top: 5px;
-      color: #bdc9c2;
-      font-size: 15px;
-    }
-
-    .managed-price p {
-      margin: 22px 0 0;
-      color: #98a89f;
-      font-size: 13px;
-      line-height: 1.6;
-    }
-
-    .experience-layout {
-      display: grid;
-      grid-template-columns: 0.85fr 1.15fr;
-      gap: 68px;
-    }
-
-    .experience-note {
-      margin-top: 25px;
-      color: var(--ink);
-      font-size: 20px;
-      font-weight: 800;
-      line-height: 1.45;
-      letter-spacing: -0.02em;
-    }
-
-    .case-study {
-      padding-left: 46px;
-      border-left: 1px solid var(--line);
-    }
-
-    .case-study small {
-      color: var(--muted);
-      font-size: 11px;
-      font-weight: 850;
-      letter-spacing: 0.09em;
-      text-transform: uppercase;
-    }
-
-    .case-study h3 {
-      margin: 17px 0 0;
-      color: var(--ink);
-      font-size: 29px;
-      line-height: 1.2;
-      letter-spacing: -0.035em;
-    }
-
-    .case-study p {
-      margin: 16px 0 0;
-      color: var(--muted);
-      font-size: 16px;
-      line-height: 1.75;
-    }
-
-    .contact-panel {
-      display: grid;
-      grid-template-columns: minmax(0, 1fr) auto;
-      align-items: center;
-      gap: 40px;
-      padding: 58px 64px;
-      border: 1px solid var(--line);
-      background: var(--white);
-      box-shadow: var(--shadow-small);
-    }
-
-    .contact-panel h2 {
-      max-width: 850px;
-      font-size: clamp(34px, 4vw, 50px);
-    }
-
-    .contact-panel p {
-      max-width: 780px;
-      margin: 17px 0 0;
-      color: var(--muted);
-      font-size: 17px;
-      line-height: 1.7;
-    }
-
-    .site-footer {
-      border-top: 1px solid var(--line);
-      background: var(--paper);
-    }
-
-    .footer-row {
-      min-height: 92px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 24px;
-      color: var(--muted);
-      font-size: 13px;
-    }
-
-    .footer-brand {
-      color: var(--ink);
-      font-weight: 850;
-    }
-
-    .footer-links {
-      display: flex;
-      gap: 20px;
-    }
-
-    .footer-links a {
+      min-height: 50px;
+      padding: 14px 22px;
+      border: 1px solid transparent;
+      border-radius: 11px;
+      background: var(--teal);
+      color: white;
+      text-align: center;
       text-decoration: none;
+      font-size: 1rem;
+      font-weight: 700;
+      line-height: 1.4;
+      transition: background .18s, box-shadow .18s;
+    }
+    .button:hover { background: var(--teal-hover); }
+    .button:disabled { opacity: .48; cursor: not-allowed; box-shadow: none; }
+    .button.compact { min-height: 46px; padding: 11px 16px; font-size: .9375rem; }
+    .button.hero-button {
+      min-height: 58px;
+      padding: 17px 28px;
+      box-shadow: 0 7px 18px -7px rgb(17 62 54 / 38%);
+    }
+    .button.hero-button:hover { box-shadow: 0 9px 24px -7px rgb(17 62 54 / 40%); }
+    .arrow { font-size: 1.25em; line-height: 1; }
+    .text-link {
+      padding: 0; border: 0; background: none; color: inherit;
+      text-decoration: underline; text-underline-offset: 4px;
     }
 
-    @media (max-width: 980px) {
-      .hero-panel,
-      .pilot-layout,
-      .managed-panel,
-      .experience-layout {
-        grid-template-columns: 1fr;
-      }
-
-      .hero-panel {
-        gap: 48px;
-      }
-
-      .managed-price {
-        border-top: 1px solid rgba(255, 255, 255, 0.14);
-        border-left: 0;
-      }
-
-      .case-study {
-        padding-top: 34px;
-        padding-left: 0;
-        border-top: 1px solid var(--line);
-        border-left: 0;
-      }
-
-      .feature-grid {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-      }
-
-      .feature:nth-child(3n + 2),
-      .feature:nth-child(3n + 3) {
-        padding-left: 0;
-      }
-
-      .feature:nth-child(even) {
-        padding-left: 22px;
-      }
-
-      .contact-panel {
-        grid-template-columns: 1fr;
-      }
+    /* Quiet navigation; the demo is the primary first action. */
+    .topbar {
+      position: sticky; top: 0; z-index: 20;
+      border-bottom: 1px solid var(--line);
+      background: rgb(248 250 252 / 96%);
+      backdrop-filter: blur(12px);
+    }
+    .nav {
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 24px; min-height: 78px;
+    }
+    .brand {
+      display: inline-flex; align-items: center; gap: 10px;
+      font-size: 1.1rem; font-weight: 800; letter-spacing: -.035em;
+      text-decoration: none; white-space: nowrap;
+    }
+    .brand-mark {
+      width: 34px; height: 34px; padding: 7px; border-radius: 10px;
+      background: var(--teal); color: var(--mint);
+    }
+    .nav-links { display: flex; align-items: center; gap: 26px; }
+    .nav-links a {
+      color: var(--muted); font-size: .875rem; font-weight: 600;
+      text-decoration: none; padding-block: 10px;
+    }
+    .nav-links a:hover { color: var(--teal); }
+    .nav-links .nav-invite {
+      border-left: 1px solid var(--line); padding-left: 26px;
     }
 
-    @media (max-width: 720px) {
-      .container {
-        width: min(calc(100% - 26px), var(--max));
-      }
+    /* Hero */
+    .hero { padding: 72px 0 42px; text-align: center; }
+    .audience {
+      display: inline-flex; gap: 9px; align-items: center;
+      padding: 7px 14px; margin-bottom: 26px;
+      background: var(--mint); color: var(--teal);
+      border: 1px solid #d2e5da; border-radius: 100px;
+      font-size: .875rem; font-weight: 650;
+    }
+    .audience::before {
+      content: ""; width: 7px; height: 7px;
+      border-radius: 50%; background: var(--teal);
+    }
+    h1 {
+      max-width: 21ch; margin: 0 auto 25px;
+      font-size: clamp(2.75rem, 6.3vw, 4.8rem);
+      line-height: 1.08; font-weight: 780; letter-spacing: -.06em;
+      text-wrap: balance;
+    }
+    h1 em { color: var(--teal); font-style: normal; }
+    .hero-copy {
+      max-width: 650px; margin: 0 auto 28px;
+      color: var(--muted); font-size: clamp(1.0625rem, 2vw, 1.1875rem);
+    }
+    .hero-note {
+      max-width: 570px; margin: 17px auto 0;
+      color: var(--muted); font-size: .875rem;
+    }
+    .hero-price { margin: 13px 0 0; font-size: .9375rem; }
 
-      .nav-links a:not(.button) {
-        display: none;
-      }
+    /* Local-only interactive concept demo */
+    .demo { padding: 24px 0 18px; }
+    .demo-shell {
+      overflow: hidden; border: 1px solid var(--line);
+      border-radius: var(--radius); background: var(--paper);
+      box-shadow: var(--shadow);
+    }
+    .demo-top {
+      display: flex; align-items: center; justify-content: space-between;
+      flex-wrap: wrap; gap: 12px; padding: 22px 28px;
+      border-bottom: 1px solid var(--line);
+    }
+    .demo-top h2 { margin: 0; font-size: 1.125rem; letter-spacing: -.025em; }
+    .demo-label {
+      padding: 5px 10px; border: 1px solid var(--line);
+      border-radius: 6px; color: var(--muted); font-size: .8125rem;
+    }
+    .tabs {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px;
+      padding: 12px 20px; background: #f1f5f9;
+      border-bottom: 1px solid var(--line);
+    }
+    .tab {
+      padding: 12px 8px; border: 1px solid transparent;
+      border-radius: 9px; background: transparent;
+      color: var(--muted); font-size: .9375rem; font-weight: 650;
+    }
+    .tab span {
+      display: inline-grid; place-items: center;
+      width: 25px; height: 25px; margin-right: 6px;
+      border: 1px solid var(--field-line); border-radius: 50%;
+      font-size: .8125rem;
+    }
+    .tab[aria-selected="true"] {
+      background: white; border-color: var(--line); color: var(--teal);
+      box-shadow: 0 2px 5px rgb(15 23 42 / 4%);
+    }
+    .tab[aria-selected="true"] span {
+      background: var(--teal); color: white; border-color: var(--teal);
+    }
+    .panel { padding: 28px; }
+    .demo-grid {
+      display: grid; grid-template-columns: 1.15fr 1fr;
+      align-items: stretch; gap: 28px; min-height: 375px;
+    }
+    .demo-grid > * { min-width: 0; }
+    .browser {
+      overflow: hidden; border: 1px solid var(--line);
+      border-radius: 14px; background: white;
+    }
+    .browser-chrome {
+      display: flex; align-items: center; gap: 12px;
+      padding: 11px 14px; border-bottom: 1px solid var(--line);
+      background: #f8fafc;
+    }
+    .dots { display: flex; gap: 4px; }
+    .dots i { width: 6px; height: 6px; border-radius: 50%; background: #94a3b8; }
+    .address {
+      margin-inline: auto; color: var(--muted);
+      font-size: .8125rem; overflow-wrap: anywhere;
+    }
+    /* Warm colours belong only to the fictional client's website. */
+    .sample-site {
+      position: relative; overflow: hidden; min-height: 335px;
+      padding: 23px 28px 30px; background: #f6f0e6;
+    }
+    .sample-nav {
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 12px; margin-bottom: 34px; color: #625549; font-size: .75rem;
+    }
+    .sample-logo { font-size: .875rem; font-weight: 800; letter-spacing: -.025em; }
+    .sample-site h3 {
+      position: relative; z-index: 1; max-width: 270px; margin: 0 0 16px;
+      color: #373128; font: 500 clamp(2rem, 3vw, 2.65rem)/1.07 Georgia, serif;
+      letter-spacing: -.05em;
+    }
+    .sample-site > p {
+      position: relative; z-index: 1; max-width: 255px;
+      color: #625549; font-size: .875rem;
+    }
+    .sample-art {
+      position: absolute; right: -12px; bottom: -10px;
+      width: 115px; height: 170px; border-radius: 80px 80px 0 0;
+      background: #d2dbc2; transform: rotate(-13deg);
+    }
+    .sample-art::before {
+      content: ""; position: absolute; left: -32px; top: 25px;
+      width: 78px; height: 78px; border: 16px solid #bba187; border-radius: 50%;
+    }
+    .sample-button {
+      position: relative; z-index: 2; margin-top: 5px;
+      padding: 12px 22px; border: 0; border-radius: 4px;
+      background: #33372c; color: white; font-size: .875rem;
+      outline: 2px dashed var(--teal); outline-offset: 5px;
+    }
+    .sample-button:hover, .sample-button.selected { outline-style: solid; }
+    .sample-button:focus-visible { outline: 3px solid var(--focus); outline-offset: 7px; }
+    .pin {
+      position: absolute; top: -14px; right: -15px;
+      display: grid; place-items: center; width: 26px; height: 26px;
+      border: 2px solid white; border-radius: 50%;
+      background: var(--teal); color: white; font-size: .8125rem; font-weight: 750;
+    }
+    .sample-caption {
+      padding: 10px 14px; border-top: 1px solid var(--line);
+      color: var(--muted); font-size: .8125rem;
+    }
+    .composer {
+      display: flex; flex-direction: column; align-items: flex-start;
+      padding: 24px; border: 1px solid var(--line); border-radius: 14px;
+      background: #f8fafc;
+    }
+    .composer h3 { margin: 11px 0 12px; font-size: 1.5rem; }
+    .composer p { color: var(--muted); font-size: .9375rem; }
+    .composer label { margin-bottom: 7px; font-size: .875rem; font-weight: 700; }
+    .composer textarea { min-height: 105px; margin-bottom: 15px; }
+    textarea, input, select {
+      width: 100%; padding: 12px;
+      border: 1px solid var(--field-line); border-radius: 8px;
+      background: white; color: var(--ink); font-size: 1rem;
+    }
+    textarea { resize: vertical; }
+    textarea:disabled { background: #f1f5f9; color: #64748b; }
+    .selection-hint { margin: 16px 0 0 !important; font-size: .8125rem !important; }
+    .task-card {
+      padding: 24px; border: 1px solid var(--line); border-radius: 14px;
+      box-shadow: 0 10px 25px -20px rgb(15 23 42 / 20%);
+    }
+    .task-top {
+      display: flex; align-items: center; justify-content: space-between;
+      flex-wrap: wrap; gap: 10px; margin-bottom: 22px;
+      color: var(--muted); font-size: .8125rem;
+    }
+    .status {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 4px 9px; border-radius: 5px;
+      background: #f1f5f9; color: var(--muted);
+      font-size: .8125rem; font-weight: 700;
+    }
+    .status.resolved { background: var(--mint); color: var(--teal); }
+    .task-card h3 { margin-bottom: 16px; font-size: 1.4rem; }
+    .task-comment {
+      padding: 14px; border: 1px solid var(--line); border-radius: 9px;
+      background: #f8fafc; font-size: .9375rem; overflow-wrap: anywhere;
+    }
+    .task-meta {
+      display: grid; grid-template-columns: 100px 1fr;
+      gap: 9px; margin: 18px 0 0; font-size: .875rem;
+    }
+    .task-meta dt { color: var(--muted); }
+    .task-meta dd { margin: 0; }
+    .attachment { margin-top: 20px; }
+    .attachment-preview {
+      display: flex; align-items: center; justify-content: space-between;
+      flex-wrap: wrap; gap: 15px; padding: 18px; background: #f6f0e6;
+    }
+    .attachment-title { color: #373128; font: 1.15rem/1.3 Georgia, serif; }
+    .attachment-button {
+      padding: 9px 12px; border-radius: 3px;
+      background: #33372c; color: white; font-size: .8125rem; white-space: nowrap;
+    }
+    .explain {
+      display: flex; flex-direction: column; justify-content: center;
+      align-items: flex-start; padding: 16px 10px;
+    }
+    .explain h3 { max-width: 320px; margin: 12px 0 16px; font-size: 1.8rem; }
+    .explain > p { color: var(--muted); font-size: 1rem; }
+    .explain .button { margin-top: 12px; }
+    .restart { margin-top: 16px; }
+    .thread-message { display: flex; gap: 12px; margin-bottom: 19px; }
+    .avatar {
+      display: grid; place-items: center; flex-shrink: 0;
+      width: 32px; height: 32px; border-radius: 9px;
+      background: #f1f5f9; color: var(--muted); font-size: .875rem; font-weight: 750;
+    }
+    .avatar.agency { background: var(--mint); color: var(--teal); }
+    .thread-text { flex: 1; min-width: 0; }
+    .thread-text strong { display: block; margin-bottom: 5px; font-size: .875rem; }
+    .thread-text p {
+      margin-bottom: 0; padding: 12px; border-radius: 0 9px 9px;
+      background: #f8fafc; font-size: .9375rem; overflow-wrap: anywhere;
+    }
+    .thread-text .reply { background: var(--mint); }
+    .privacy-note {
+      margin: 18px 0 0; padding-top: 14px;
+      border-top: 1px dashed #cbd5e1; color: var(--muted); font-size: .875rem;
+    }
+    .demo-foot {
+      padding: 14px 20px; border-top: 1px solid var(--line);
+      background: #f8fafc; color: var(--muted); font-size: .8125rem; text-align: center;
+    }
 
-      .hero {
-        padding-top: 20px;
-      }
+    /* Problem and planned capabilities */
+    .problem-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; }
+    .problem-copy .eyebrow { margin-bottom: 17px; color: var(--teal); }
+    .problem-copy p { color: var(--muted); }
+    .problem-copy strong { color: var(--ink); }
+    .message-stack { padding: 18px 18px 18px 0; }
+    .message {
+      display: flex; align-items: flex-start; gap: 15px;
+      padding: 20px; border: 1px solid var(--line); border-radius: 14px;
+      background: white; box-shadow: 0 10px 35px -30px rgb(15 23 42 / 25%);
+    }
+    .message + .message { margin-top: 12px; }
+    .message:nth-child(2) { margin-left: 35px; margin-right: -18px; }
+    .message:nth-child(3) { margin-left: 13px; }
+    .message-icon {
+      display: grid; place-items: center; flex-shrink: 0;
+      width: 36px; height: 36px; border-radius: 10px;
+      background: #f1f5f9; color: var(--muted);
+    }
+    .message small {
+      display: block; margin-bottom: 4px;
+      color: var(--muted); font-size: .8125rem;
+    }
+    .message p { margin: 0; font-size: 1rem; }
+    .fit { background: #f1f5f9; border-block: 1px solid var(--line); }
+    .feature-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+    .feature { padding: 28px; border: 1px solid var(--line); border-radius: 16px; background: white; }
+    .feature-icon {
+      display: grid; place-items: center; width: 42px; height: 42px;
+      margin-bottom: 24px; border-radius: 12px;
+      background: var(--mint); color: var(--teal);
+    }
+    .feature h3 { margin-bottom: 13px; }
+    .feature p { margin: 0; color: var(--muted); font-size: 1rem; }
+    .setup {
+      display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between;
+      gap: 16px 22px; margin-top: 30px; padding: 24px 0;
+      border-top: 1px solid #cbd5e1;
+    }
+    .setup strong { font-size: .9375rem; }
+    .setup p {
+      display: flex; flex-wrap: wrap; align-items: center;
+      gap: 12px; margin: 0; color: var(--muted); font-size: .9375rem;
+    }
+    .scope-note { margin: 0; color: var(--muted); font-size: .9375rem; }
 
-      .hero-panel,
-      .section-panel,
-      .managed-main {
-        padding: 44px 24px;
-      }
+    /* A single teal section marks the later conversion point. */
+    .beta {
+      display: grid; grid-template-columns: .9fr 1.1fr;
+      align-items: start; gap: 48px; margin-block: 96px; padding: 44px;
+      border-radius: var(--radius); background: var(--teal); color: white;
+    }
+    .beta .eyebrow { margin: 8px 0 22px; color: #d4e9df; }
+    .beta h2 { max-width: 380px; }
+    .beta-intro { color: #d4e2dc; font-size: 1rem; }
+    .price { display: flex; align-items: baseline; gap: 10px; margin: 28px 0 8px; }
+    .price strong { font-size: 4.5rem; line-height: 1; letter-spacing: -.07em; }
+    .price span { color: #d4e2dc; font-size: 1rem; }
+    .price-note { color: #d4e2dc; font-size: .875rem; }
+    .plan-items { padding: 0; margin: 28px 0; list-style: none; }
+    .plan-items li { display: flex; gap: 10px; align-items: center; margin-bottom: 12px; font-size: 1rem; }
+    .check { color: #d4e9df; font-weight: 800; }
+    .availability {
+      padding-top: 22px; border-top: 1px solid rgb(255 255 255 / 22%);
+      color: #d4e2dc; font-size: .9375rem;
+    }
+    .availability strong { display: block; margin-bottom: 7px; color: white; }
+    .request-card { padding: 28px; border-radius: 16px; background: white; color: var(--ink); }
+    .request-card h3 { margin-bottom: 10px; font-size: 1.5rem; }
+    .request-card > p { color: var(--muted); font-size: .9375rem; }
+    .fields { min-width: 0; padding: 0; margin: 0; border: 0; }
+    .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px 16px; }
+    .field { min-width: 0; }
+    .field.full { grid-column: 1 / -1; }
+    .field label { display: block; margin-bottom: 7px; font-size: .875rem; font-weight: 700; }
+    .field textarea { min-height: 100px; }
+    .field small { display: block; margin-top: 6px; color: var(--muted); font-size: .8125rem; }
+    .consent {
+      display: flex; align-items: flex-start; gap: 10px;
+      margin: 20px 0; color: var(--muted); font-size: .875rem; line-height: 1.6;
+    }
+    .consent input {
+      flex-shrink: 0; width: 18px; height: 18px;
+      margin: 4px 0 0; accent-color: var(--teal);
+    }
+    .request-card .button { width: 100%; }
+    .form-micro { margin: 13px 0 0; color: var(--muted); font-size: .8125rem; text-align: center; }
+    .preview-note {
+      margin: 17px 0 0; padding: 12px;
+      border: 1px dashed var(--field-line); border-radius: 8px;
+      background: #f8fafc; color: var(--muted); font-size: .875rem;
+    }
+    .form-status {
+      margin-top: 16px; padding: 14px; border-radius: 8px;
+      background: var(--mint); color: var(--teal); font-size: .9375rem;
+    }
+    .form-status.error { background: #fff1f2; color: #9f1239; }
 
-      .managed-price {
-        padding: 42px 24px;
-      }
+    /* FAQ, footer and draft privacy dialog */
+    .faq { max-width: 780px; margin: 0 auto; padding-bottom: 90px; }
+    .faq .section-heading { margin: 0 auto 30px; text-align: center; }
+    details { padding: 21px 0; border-bottom: 1px solid var(--line); }
+    summary {
+      display: flex; align-items: center; justify-content: space-between; gap: 20px;
+      list-style: none; cursor: pointer; font-size: 1.0625rem; font-weight: 650; line-height: 1.5;
+    }
+    summary::-webkit-details-marker { display: none; }
+    summary::after { content: "+"; flex-shrink: 0; color: var(--muted); font-size: 1.5rem; font-weight: 400; }
+    details[open] summary::after { content: "−"; }
+    details p { padding-right: 28px; margin: 15px 0 0; color: var(--muted); font-size: 1rem; }
+    footer { padding: 32px 0; border-top: 1px solid var(--line); background: white; }
+    .footer-row { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 25px; }
+    .footer-links { display: flex; gap: 25px; color: var(--muted); font-size: .9375rem; }
+    .footer-note { margin: 18px 0 0; color: var(--muted); font-size: .875rem; }
+    dialog {
+      max-width: min(520px, calc(100% - 36px)); padding: 30px;
+      border: 1px solid var(--line); border-radius: 18px;
+      background: white; color: var(--ink); box-shadow: var(--shadow);
+    }
+    dialog::backdrop { background: rgb(15 23 42 / 45%); backdrop-filter: blur(3px); }
+    dialog h2 { font-size: 1.6rem; }
+    dialog p { color: var(--muted); font-size: 1rem; }
 
-      .hero-facts,
-      .feature-grid,
-      .managed-list {
-        grid-template-columns: 1fr;
-      }
-
-      .feature:nth-child(even) {
-        padding-left: 0;
-      }
-
-      .product-demo-main {
-        grid-template-columns: 1fr;
-      }
-
-      .product-image {
-        min-height: 145px;
-      }
-
-      .contact-panel {
-        padding: 44px 24px;
-      }
-
-      .footer-row {
-        align-items: flex-start;
-        flex-direction: column;
-        justify-content: center;
-        padding: 25px 0;
-      }
+    @media (max-width: 920px) {
+      .nav-links { gap: 18px; }
+      .nav-links .nav-invite { padding-left: 18px; }
+      .demo-grid, .problem-grid { gap: 24px; }
+      .feature { padding: 23px; }
+      .beta { grid-template-columns: .85fr 1.15fr; gap: 28px; padding: 32px; }
+      .request-card { padding: 24px; }
+      .form-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 760px) {
+      .wrap { width: min(1120px, calc(100% - 32px)); }
+      .nav { min-height: 70px; gap: 12px; }
+      .nav-links > a:not(.nav-invite) { display: none; }
+      .nav-links .nav-invite { border: 0; padding-left: 0; font-size: .8125rem; }
+      .hero { padding-top: 48px; }
+      h1 { font-size: clamp(2.65rem, 8.5vw, 4rem); }
+      .hero-copy { font-size: 1.0625rem; }
+      .hero-note { max-width: 370px; }
+      .section { padding: 66px 0; }
+      .demo-top { padding: 20px; }
+      .demo-top h2 { width: 100%; }
+      .tabs { padding: 10px; gap: 4px; }
+      .tab { padding: 11px 4px; font-size: .8125rem; }
+      .tab span { display: grid; margin: 0 auto 7px; }
+      .panel { padding: 16px; }
+      .demo-grid, .problem-grid, .feature-grid { grid-template-columns: 1fr; }
+      .sample-site { min-height: 305px; }
+      .sample-site h3 { font-size: 2.45rem; }
+      .composer { padding: 22px; }
+      .composer textarea { min-height: 86px; }
+      .explain { padding: 12px 7px; }
+      .explain h3 { max-width: none; }
+      .message-stack { max-width: 510px; }
+      .feature-icon { margin-bottom: 18px; }
+      .beta { grid-template-columns: 1fr; gap: 26px; margin-block: 64px; padding: 26px; }
+      .beta h2 { max-width: none; }
+      .price strong { font-size: 3.75rem; }
+      .faq { padding-bottom: 65px; }
+      .footer-row { align-items: flex-start; }
+    }
+    @media (max-width: 400px) {
+      .brand { font-size: 1rem; gap: 8px; }
+      .brand-mark { width: 30px; height: 30px; }
+      .nav-links .nav-invite { max-width: 105px; text-align: right; line-height: 1.4; }
+      .beta { padding: 22px 16px; }
+      .request-card { padding: 21px 18px; }
+      .sample-site { padding-inline: 22px; }
+      .sample-nav > span:last-child { font-size: .6875rem; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after { transition: none !important; animation: none !important; }
     }
   </style>
 </head>
-
 <body>
-  <header class="site-header">
-    <div class="container nav">
-      <a href="/" class="brand" aria-label="Digital Hawk home">
-        <span class="brand-mark">DH</span>
-        <span>Digital Hawk</span>
-      </a>
+  <a href="#main" class="skip">Skip to content</a>
 
-      <nav class="nav-links" aria-label="Primary navigation">
-        <a href="#product">Sales Assistant</a>
-        <a href="#pilot">30-day pilot</a>
-        <a href="#managed">Managed service</a>
-        <a href="#experience">Experience</a>
-        <a
-          class="button"
-          href="mailto:nick@digitalhawk.ai?subject=Digital%20Hawk%20enquiry"
-        >
-          Contact
-        </a>
+  <header class="topbar">
+    <div class="wrap nav">
+      <a class="brand" href="#main" aria-label="Digital Hawk homepage">
+        <svg class="brand-mark" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="M3 5h18L12 20l-2-8-7-7Z" fill="currentColor"/>
+          <path d="m10 12 8-5" stroke="#113e36" stroke-width="1.7"/>
+        </svg>
+        Digital Hawk.
+      </a>
+      <nav class="nav-links" aria-label="Main navigation">
+        <a href="#demo">The workflow</a>
+        <a href="#fit">How it fits</a>
+        <a href="#faq">FAQs</a>
+        <a class="nav-invite" href="#beta">Request a beta invitation <span aria-hidden="true">↗</span></a>
       </nav>
     </div>
   </header>
 
-  <main>
-    <section class="hero">
-      <div class="container hero-panel">
-        <div>
-          <h1>Turn complex product choices into confident orders.</h1>
+  <main id="main">
+    <section class="hero wrap" aria-labelledby="hero-title">
+      <div class="audience">For web agencies using ClickUp</div>
+      <h1 id="hero-title">Website feedback that lands in ClickUp—<em>not another inbox.</em></h1>
+      <p class="hero-copy">
+        Let clients point to exactly what needs changing. Bring their comments,
+        screenshots and page details into ClickUp, where your team already manages the work.
+      </p>
+      <a class="button hero-button" href="#demo">
+        Explore the example workflow <span class="arrow" aria-hidden="true">↗</span>
+      </a>
+      <p class="hero-note">
+        No signup required. Illustrative demo of a prelaunch product—not available to use yet.
+      </p>
+      <p class="hero-price">Proposed plan: <strong>$79 USD/month per agency.</strong></p>
+    </section>
 
-          <p class="hero-lead">
-            Digital Hawk builds and manages guided sales journeys for ecommerce
-            stores selling technical, configurable or high-value products.
-          </p>
+    <section class="demo wrap" id="demo" aria-labelledby="demo-title">
+      <div class="demo-shell">
+        <div class="demo-top">
+          <h2 id="demo-title">From “change this” to a clear task.</h2>
+          <span class="demo-label">Illustrative demo · No live ClickUp connection</span>
+        </div>
+        <div class="tabs" role="tablist" aria-label="Explore the planned workflow">
+          <button class="tab" id="tab-1" type="button" role="tab" aria-selected="true" aria-controls="panel-1" tabindex="0">
+            <span aria-hidden="true">1</span> Point &amp; comment
+          </button>
+          <button class="tab" id="tab-2" type="button" role="tab" aria-selected="false" aria-controls="panel-2" tabindex="-1">
+            <span aria-hidden="true">2</span> A clear task
+          </button>
+          <button class="tab" id="tab-3" type="button" role="tab" aria-selected="false" aria-controls="panel-3" tabindex="-1">
+            <span aria-hidden="true">3</span> Close the loop
+          </button>
+        </div>
 
-          <p class="hero-copy">
-            The assistant asks the questions that matter, applies approved product
-            rules, recommends a suitable product or complete setup, and tracks the
-            orders that follow.
-          </p>
-
-          <div class="hero-actions">
-            <a
-              class="button"
-              href="mailto:nick@digitalhawk.ai?subject=30-day%20Sales%20Assistant%20pilot"
-            >
-              Contact
-            </a>
-
-            <a class="button secondary" href="#pilot">
-              See the 30-day pilot
-            </a>
-          </div>
-
-          <div class="hero-facts">
-            <div>
-              <strong>£0 upfront</strong>
-              <span>Low-risk pilot</span>
+        <div class="panel" id="panel-1" role="tabpanel" aria-labelledby="tab-1" tabindex="0">
+          <div class="demo-grid">
+            <div class="browser">
+              <div class="browser-chrome">
+                <span class="dots" aria-hidden="true"><i></i><i></i><i></i></span>
+                <span class="address">sample-project.test / homepage</span>
+              </div>
+              <div class="sample-site">
+                <div class="sample-nav">
+                  <span class="sample-logo">example studio.</span>
+                  <span>Work &nbsp; About &nbsp; Contact</span>
+                </div>
+                <h3>Good ideas deserve a great website.</h3>
+                <p>A fictional client website, just for this demonstration.</p>
+                <button id="sample-target" class="sample-button" type="button" aria-label="Select the sample Let’s talk button to leave feedback" aria-pressed="false">
+                  Let’s talk <span class="pin" aria-hidden="true">1</span>
+                </button>
+                <div class="sample-art" aria-hidden="true"></div>
+              </div>
+              <div class="sample-caption">Sample client view · Click the highlighted button to start</div>
             </div>
-
-            <div>
-              <strong>One product range</strong>
-              <span>Focused starting scope</span>
-            </div>
-
-            <div>
-              <strong>Tracked outcomes</strong>
-              <span>Orders and revenue</span>
+            <div class="composer">
+              <span class="eyebrow">The client’s view</span>
+              <h3>Point to it.<br>Explain the change.</h3>
+              <p>Pick the highlighted button, then add a comment. No guessing which page or element you mean.</p>
+              <label for="example-feedback">Your example feedback</label>
+              <textarea id="example-feedback" maxlength="500" disabled>Change this wording to “Book a call”.</textarea>
+              <button id="preview-task" class="button compact" type="button" disabled>
+                Preview the ClickUp task <span aria-hidden="true">→</span>
+              </button>
+              <p class="selection-hint" id="selection-hint" role="status">Select the highlighted website button to begin.</p>
             </div>
           </div>
         </div>
 
-        <div class="product-demo" aria-label="Example product configuration">
-          <div class="product-demo-main">
-            <div class="product-image">
-              <svg aria-hidden="true" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M17 18h30l4 10-5 22H18l-5-22 4-10Z" stroke-linejoin="round"/>
-                <path d="M23 18c0-6 3-10 9-10s9 4 9 10" stroke-linecap="round"/>
-                <path d="M23 31h18M23 38h13" stroke-linecap="round"/>
-              </svg>
-            </div>
-
-            <div>
-              <h2 class="product-title">Complete product setup</h2>
-
-              <p class="product-subtitle">
-                Choose a compatible product and the options needed to use it.
-              </p>
-
-              <span class="field-label">Configuration</span>
-
-              <div class="option-row">
-                <button class="option" type="button">Option A</button>
-                <button class="option selected" type="button">Option B</button>
-                <button class="option" type="button">Option C</button>
+        <div class="panel" id="panel-2" role="tabpanel" aria-labelledby="tab-2" tabindex="0" hidden>
+          <div class="demo-grid">
+            <div class="task-card">
+              <div class="task-top">
+                <span>EXAMPLE CLICKUP TASK · NOT CONNECTED</span>
+                <span class="status">To do</span>
               </div>
+              <h3>Homepage button feedback</h3>
+              <div class="task-comment mirror-feedback">Change this wording to “Book a call”.</div>
+              <dl class="task-meta">
+                <dt>Page</dt><dd>Homepage</dd>
+                <dt>Element</dt><dd>“Let’s talk” button</dd>
+                <dt>Submitted by</dt><dd>Example client</dd>
+              </dl>
+              <div class="browser attachment">
+                <div class="browser-chrome"><span class="small muted">Illustrative screenshot attachment</span></div>
+                <div class="attachment-preview">
+                  <span class="attachment-title">Good ideas deserve<br>a great website.</span>
+                  <span class="attachment-button">Let’s talk</span>
+                </div>
+              </div>
+            </div>
+            <div class="explain">
+              <span class="eyebrow">The agency’s view</span>
+              <h3>All the context.<br>Already in the task.</h3>
+              <p>The planned integration would create a ClickUp task with the client’s comment, confirmed screenshot and page details.</p>
+              <p>No copying the request out of an email. No separate project-management system to introduce.</p>
+              <button id="preview-reply" class="button" type="button">Preview the client update <span aria-hidden="true">→</span></button>
             </div>
           </div>
+        </div>
 
-          <div class="recommendation">
-            <div class="recommendation-top">
-              <div>
-                <div class="recommendation-label">Recommended configuration</div>
-                <p class="recommendation-name">Product + compatible options</p>
+        <div class="panel" id="panel-3" role="tabpanel" aria-labelledby="tab-3" tabindex="0" hidden>
+          <div class="demo-grid">
+            <div class="task-card">
+              <div class="task-top">
+                <span>EXAMPLE CLIENT CONVERSATION</span>
+                <span class="status resolved">✓ Resolved</span>
               </div>
-
-              <span class="valid-badge">Valid</span>
+              <div class="thread-message">
+                <span class="avatar" aria-hidden="true">C</span>
+                <div class="thread-text">
+                  <strong>Client</strong>
+                  <p class="mirror-feedback">Change this wording to “Book a call”.</p>
+                </div>
+              </div>
+              <div class="thread-message">
+                <span class="avatar agency" aria-hidden="true">A</span>
+                <div class="thread-text">
+                  <strong>Agency · deliberately shared reply</strong>
+                  <p class="reply">Updated—please take another look.</p>
+                </div>
+              </div>
+              <p class="privacy-note">Only the shared reply and supported status update appear here. Internal agency notes stay separate.</p>
             </div>
-
-            <div class="recommendation-bottom">
-              <!-- <div class="price">
-                <small>Configured total</small>
-                <strong>£2,495</strong>
-              </div> -->
-
-              <button type="button" class="basket-button">Add to basket</button>
+            <div class="explain">
+              <span class="eyebrow">The follow-up</span>
+              <h3>Keep the client<br>in the loop.</h3>
+              <p>Your developers would make the change. A deliberately shared reply and completion update would let the client know what happened.</p>
+              <p>This example simulates the conversation. It hasn’t changed a website or created a real task.</p>
+              <a href="#beta" class="button">Would this fit your agency? <span aria-hidden="true">↗</span></a>
+              <button id="restart-demo" class="text-link small muted restart" type="button">Restart the example</button>
             </div>
+          </div>
+        </div>
+        <div class="demo-foot">Concept demo only. No data is sent to ClickUp and no website is edited.</div>
+      </div>
+      <noscript>
+        <p class="small muted">Enable JavaScript to explore the example. The planned flow is: client comment → ClickUp task → deliberately shared reply and status update.</p>
+      </noscript>
+    </section>
+
+    <section class="section wrap" aria-labelledby="problem-title">
+      <div class="problem-grid">
+        <div class="problem-copy">
+          <span class="eyebrow">Sound familiar?</span>
+          <h2 id="problem-title">Less “Which page<br>did you mean?”</h2>
+          <p>A client sends a screenshot. Another sends an email. A new request gets buried in yesterday’s message thread.</p>
+          <p>Your team has to work out what each person means, copy the requests into ClickUp and remember where to send the replies.</p>
+          <p><strong>The planned tool keeps the request, its visual context and the client-facing conversation together.</strong></p>
+        </div>
+        <div class="message-stack" role="group" aria-label="Illustrative examples of scattered client feedback">
+          <div class="message">
+            <span class="message-icon" aria-hidden="true">✉</span>
+            <div><small>Email thread</small><p>“Can we change that image?”</p></div>
+          </div>
+          <div class="message">
+            <span class="message-icon" aria-hidden="true">↳</span>
+            <div><small>Another follow-up</small><p>“Which page did you mean?”</p></div>
+          </div>
+          <div class="message">
+            <span class="message-icon" aria-hidden="true">↗</span>
+            <div><small>A separate message</small><p>“Has this been updated yet?”</p></div>
           </div>
         </div>
       </div>
     </section>
 
-    <section id="product" class="section">
-      <div class="container section-panel">
-        <p class="section-kicker">The product</p>
-
-        <h2>Give shoppers a buying answer, not another page of information.</h2>
-
-        <p class="section-intro">
-          Specifications, comparison tables and expert teams are valuable.
-          The missing step is often applying that knowledge to the shopper’s
-          own needs while they are still on the product page.
-        </p>
-
+    <section class="section fit" id="fit" aria-labelledby="fit-title">
+      <div class="wrap">
+        <div class="section-heading">
+          <span class="eyebrow">The planned product</span>
+          <h2 id="fit-title">A feedback layer.<br>Not another project system.</h2>
+          <p class="muted">The client points to the change. Your team gets the context. The work stays in ClickUp.</p>
+        </div>
         <div class="feature-grid">
           <article class="feature">
-            <span class="feature-number">01</span>
-            <h3>Ask only what changes the answer</h3>
-            <p>
-              Gather the practical details that affect suitability, configuration
-              or the complete setup.
-            </p>
-          </article>
-
-          <article class="feature">
-            <span class="feature-number">02</span>
-            <h3>Recommend a suitable setup</h3>
-            <p>
-              Apply retailer-approved rules to suggest a product, size, package
-              or configuration and explain why.
-            </p>
-          </article>
-
-          <article class="feature">
-            <span class="feature-number">03</span>
-            <h3>Let buyers adjust valid options</h3>
-            <p>
-              Knowledgeable shoppers can change relevant options while staying
-              inside the rules of the product range.
-            </p>
-          </article>
-
-          <article class="feature">
-            <span class="feature-number">04</span>
-            <h3>Hand off technical exceptions</h3>
-            <p>
-              Uncertain cases reach the existing team with the shopper’s answers
-              and proposed configuration attached.
-            </p>
-          </article>
-
-          <article class="feature">
-            <span class="feature-number">05</span>
-            <h3>Use the existing sales route</h3>
-            <p>
-              Valid results connect to the current basket, enquiry form or sales
-              process instead of creating a separate system.
-            </p>
-          </article>
-
-          <article class="feature">
-            <span class="feature-number">06</span>
-            <h3>Track commercial results</h3>
-            <p>
-              Measure usage, completed journeys, basket actions, assisted orders
-              and assisted revenue.
-            </p>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <section id="pilot" class="section">
-      <div class="container section-panel soft">
-        <div class="pilot-layout">
-          <div>
-            <p class="section-kicker">30-day pilot</p>
-
-            <h2>Start with one product range and measure what happens.</h2>
-
-            <p class="section-intro">
-              The pilot is deliberately narrow. A working version is reviewed
-              before launch, then placed on a small number of relevant product pages.
-            </p>
-
-            <div class="pilot-offer">
-              <strong>No upfront fee.</strong>
-              <span>If the pilot produces no tracked sale, there is nothing to pay.</span>
+            <div class="feature-icon" aria-hidden="true">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="m5 3 14 9-7 1-3 7-4-17Z"/></svg>
             </div>
-          </div>
-
-          <div>
-            <div class="steps">
-              <article class="step">
-                <span class="step-number">1</span>
-                <div>
-                  <h3>Choose one product range</h3>
-                  <p>
-                    Focus on a small set of pages where the buying decision is
-                    genuinely difficult and commercially valuable.
-                  </p>
-                </div>
-              </article>
-
-              <article class="step">
-                <span class="step-number">2</span>
-                <div>
-                  <h3>Build and review the working version</h3>
-                  <p>
-                    Use the current products, options and approved sales rules.
-                    Nothing goes live before the working journey has been reviewed.
-                  </p>
-                </div>
-              </article>
-
-              <article class="step">
-                <span class="step-number">3</span>
-                <div>
-                  <h3>Run it for 30 days</h3>
-                  <p>
-                    Track opens, completions, recommendations, basket actions,
-                    requests for help, assisted orders and revenue.
-                  </p>
-                </div>
-              </article>
+            <h3>For your clients</h3>
+            <p>Point to something on the website, explain the change and see follow-up—without needing a ClickUp account.</p>
+          </article>
+          <article class="feature">
+            <div class="feature-icon" aria-hidden="true">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="4" y="3" width="16" height="18" rx="3"/><path d="m8 9 2 2 5-5M8 15h8M8 18h5"/></svg>
             </div>
-
-            <a
-              class="button"
-              style="margin-top: 30px;"
-              href="mailto:nick@digitalhawk.ai?subject=30-day%20Sales%20Assistant%20pilot"
-            >
-              Contact
-            </a>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section id="managed" class="section">
-      <div class="container managed-panel">
-        <div class="managed-main">
-          <p class="section-kicker">Managed after launch</p>
-
-          <h2>Keep it accurate. Keep improving it.</h2>
-
-          <p class="section-intro">
-            Products, prices, specifications and sales rules change. Shopper
-            behaviour also shows where the journey can be clearer or more effective.
-          </p>
-
-          <div class="managed-list">
-            <p>Hosting and monitoring</p>
-            <p>Product and specification updates</p>
-            <p>Recommendation rule changes</p>
-            <p>Journey and handoff improvements</p>
-            <p>Behaviour and drop-off review</p>
-            <p>Dashboard and attribution maintenance</p>
-          </div>
-        </div>
-
-        <aside class="managed-price">
-          <small>Managed service</small>
-          <strong>£750</strong>
-          <span>per month</span>
-          <p>Cancel anytime. Additional product ranges can be added separately.</p>
-        </aside>
-      </div>
-    </section>
-
-    <section id="experience" class="section">
-      <div class="container section-panel">
-        <div class="experience-layout">
-          <div>
-            <p class="section-kicker">Experience</p>
-
-            <h2>Independent UK software consultancy.</h2>
-
-            <p class="section-intro">
-              Every project is scoped, designed and built directly by a software
-              architect with more than ten years of experience in production
-              software, ecommerce integrations and customer-facing systems.
-            </p>
-
-            <p class="experience-note">
-              Digital Hawk is a new consultancy. The engineering experience behind it is not new.
-            </p>
-          </div>
-
-          <article class="case-study">
-            <small>Selected previous work</small>
-
-            <h3>AI knowledge assistant for a health membership platform</h3>
-
-            <p>
-              Built a private assistant that searched a large content library
-              and answered member questions using approved material.
-            </p>
-
-            <p>
-              Questions that could not be answered confidently were routed for
-              review rather than answered incorrectly.
-            </p>
+            <h3>For your team</h3>
+            <p>Receive ClickUp tasks with comments, screenshots and page details. Share only the replies you intend clients to see.</p>
+          </article>
+          <article class="feature">
+            <div class="feature-icon" aria-hidden="true">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="3" y="8" width="18" height="13" rx="2"/><path d="M8 8V4h8v4M3 13h18M10 13v3h4v-3"/></svg>
+            </div>
+            <h3>For your agency</h3>
+            <p>Basic agency branding, guest reviewers and one connected ClickUp workspace in the proposed plan.</p>
           </article>
         </div>
+        <div class="setup">
+          <strong>How setup would work</strong>
+          <p><span>Install the website script</span><span aria-hidden="true">→</span><span>Connect ClickUp</span><span aria-hidden="true">→</span><span>Invite client feedback</span></p>
+        </div>
+        <p class="scope-note">Planned for supported review and staging websites. Clients would not need a browser extension. Your team would still make the changes—the tool would not edit websites or fix code automatically.</p>
       </div>
     </section>
 
-    <section class="section" style="padding-bottom: 52px;">
-      <div class="container contact-panel">
-        <div>
-          <p class="section-kicker">Contact</p>
-
-          <h2>Do customers struggle to choose between your products, sizes, packages or configurations?</h2>
-
-          <p>
-            Send the relevant product page and the question shoppers get stuck on.
-            Digital Hawk will tell you whether a 30-day Sales Assistant pilot is a sensible fit.
-          </p>
+    <section class="wrap beta" id="beta" aria-labelledby="beta-title">
+      <div>
+        <span class="eyebrow">One agency. One planned subscription.</span>
+        <h2 id="beta-title">Would this fit one of your client projects?</h2>
+        <p class="beta-intro">For agencies already using ClickUp to manage website projects or ongoing client requests.</p>
+        <div class="price"><strong>$79</strong><span>USD / month</span></div>
+        <p class="price-note">Proposed price per agency. No payment at this stage.</p>
+        <ul class="plan-items">
+          <li><span class="check" aria-hidden="true">✓</span> One connected ClickUp workspace</li>
+          <li><span class="check" aria-hidden="true">✓</span> Guest reviewers</li>
+          <li><span class="check" aria-hidden="true">✓</span> Basic agency branding</li>
+        </ul>
+        <div class="availability">
+          <strong>Currently prelaunch.</strong>
+          The product is not available yet, and there is no confirmed launch date.
+          Tell us where you would use it; we’ll follow up to discuss whether the
+          planned workflow fits. No payment is taken.
         </div>
+      </div>
+      <div class="request-card">
+        <h3>Request a beta invitation.</h3>
+        <p>Tell us a little about your agency and a project you have in mind.</p>
+        <!-- Unconnected draft: configure the endpoint and privacy notice before launch. -->
+        <form id="request-form" novalidate>
+          <fieldset class="fields" id="request-fields" disabled>
+            <div class="form-grid">
+              <div class="field full">
+                <label for="email">Work email</label>
+                <input id="email" name="email" type="email" autocomplete="email" placeholder="you@youragency.com" maxlength="254" required>
+              </div>
+              <div class="field full">
+                <label for="agency">Agency website</label>
+                <input id="agency" name="agencyWebsite" type="text" inputmode="url" autocomplete="url" placeholder="youragency.com" maxlength="300" required>
+              </div>
+              <div class="field">
+                <label for="role">Your role</label>
+                <select id="role" name="role" required>
+                  <option value="">Select your role</option>
+                  <option value="owner">Owner</option>
+                  <option value="project-lead">Delivery / project lead</option>
+                  <option value="other">Other</option>
+                </select>
+              </div>
+              <div class="field">
+                <label for="clickup">Currently use ClickUp?</label>
+                <select id="clickup" name="usesClickUp" required>
+                  <option value="">Please select</option>
+                  <option value="yes">Yes</option>
+                  <option value="no">No</option>
+                </select>
+              </div>
+              <div class="field full">
+                <label for="project">What would you use this for?</label>
+                <textarea id="project" name="project" maxlength="1000" placeholder="A client project or recurring work, and approximate timing…" aria-describedby="project-help" required></textarea>
+                <small id="project-help">No confidential client details, screenshots or passwords.</small>
+              </div>
+            </div>
+            <label class="consent">
+              <input name="followUpPermission" type="checkbox" value="yes" required>
+              <span>Please contact me about this request and the proposed <strong>$79/month</strong> product. This is not a subscription or an unrelated mailing list.</span>
+            </label>
+            <button class="button" type="submit" id="submit-request">Request a beta invitation <span aria-hidden="true">↗</span></button>
+          </fieldset>
+          <p class="form-micro">No payment today. No subscription commitment.<br><button class="text-link" type="button" data-privacy>Privacy notice</button></p>
+          <p class="preview-note" id="form-preview-note">Draft preview: this form is not connected. No request will be sent.</p>
+          <p id="form-status" class="form-status" role="status" aria-live="polite" tabindex="-1" hidden></p>
+        </form>
+        <noscript><p class="small muted">JavaScript is required for this form. This draft does not accept requests.</p></noscript>
+      </div>
+    </section>
 
-        <a
-          class="button"
-          href="mailto:nick@digitalhawk.ai?subject=Sales%20Assistant%20pilot"
-        >
-          Contact
-        </a>
+    <section class="wrap" id="faq" aria-labelledby="faq-title">
+      <div class="faq">
+        <div class="section-heading">
+          <span class="eyebrow">Good questions</span>
+          <h2 id="faq-title">Before you ask.</h2>
+        </div>
+        <details>
+          <summary>Can I use it on a client website now?</summary>
+          <p>Not yet. The interactive example demonstrates the planned experience; it is not a working trial. There is no confirmed launch date.</p>
+        </details>
+        <details>
+          <summary>Would clients need ClickUp or a browser extension?</summary>
+          <p>The planned guest experience would require neither. Your agency would handle the website-script installation and ClickUp connection.</p>
+        </details>
+        <details>
+          <summary>Would clients see our internal conversations?</summary>
+          <p>The planned integration would expose only replies deliberately shared with clients and supported status updates—not ordinary internal ClickUp notes.</p>
+        </details>
+        <details>
+          <summary>Which websites would it support?</summary>
+          <p>The initial scope is review and staging websites where your agency can install the script. Compatibility, project and usage limits would be confirmed before offering access.</p>
+        </details>
+        <details>
+          <summary>Does it make the requested changes?</summary>
+          <p>No. It would capture and organise feedback. Your developers would still implement the changes.</p>
+        </details>
+        <details>
+          <summary>What happens after I request an invitation?</summary>
+          <p>Digital Hawk will follow up about your project and whether the proposed standard workflow fits. An invitation request does not guarantee access or a release date, and no payment is taken at this stage.</p>
+        </details>
       </div>
     </section>
   </main>
 
-  <footer class="site-footer">
-    <div class="container footer-row">
-      <div>
-        <div class="footer-brand">Digital Hawk</div>
-        <div>Independent UK software consultancy</div>
+  <footer>
+    <div class="wrap">
+      <div class="footer-row">
+        <a class="brand" href="#main">Digital Hawk.</a>
+        <div class="footer-links">
+          <a href="mailto:nick@digitalhawk.ai">Contact</a>
+          <button class="text-link" type="button" data-privacy>Privacy notice</button>
+        </div>
       </div>
-
-      <div class="footer-links">
-        <a href="/privacy/">Privacy</a>
-        <a href="mailto:nick@digitalhawk.ai?subject=Digital%20Hawk%20enquiry">Contact</a>
-      </div>
+      <p class="footer-note">Independent product concept. Not affiliated with or endorsed by ClickUp.</p>
     </div>
   </footer>
+
+  <dialog id="privacy-dialog" aria-labelledby="privacy-title">
+    <h2 id="privacy-title">About this draft</h2>
+    <p>The interactive example runs in your browser. It does not connect to ClickUp, capture other websites or send your example comments anywhere.</p>
+    <p>The invitation form is not connected in this draft. Its contents are not submitted or saved by this page. No advertising or analytics scripts are included.</p>
+    <p>A complete privacy notice and working submission service must be added before accepting real requests.</p>
+    <form method="dialog"><button class="button compact" type="submit">Close</button></form>
+  </dialog>
+
+  <script>
+    (() => {
+      'use strict';
+
+      // Concept demo: local only, with no screenshot capture or external requests.
+      const defaultFeedback = 'Change this wording to “Book a call”.';
+      const tabs = [...document.querySelectorAll('[role="tab"]')];
+      const panels = [...document.querySelectorAll('[role="tabpanel"]')];
+      const feedback = document.getElementById('example-feedback');
+      const target = document.getElementById('sample-target');
+      const taskButton = document.getElementById('preview-task');
+      const selectionHint = document.getElementById('selection-hint');
+
+      function syncFeedback() {
+        const text = feedback.value.trim() || defaultFeedback;
+        document.querySelectorAll('.mirror-feedback').forEach(node => {
+          node.textContent = text; // Never insert user-entered text as HTML.
+        });
+      }
+
+      function showStep(index, focusPanel = false) {
+        syncFeedback();
+        tabs.forEach((tab, i) => {
+          const active = i === index;
+          tab.setAttribute('aria-selected', String(active));
+          tab.tabIndex = active ? 0 : -1;
+          panels[i].hidden = !active;
+        });
+        if (focusPanel) panels[index].focus({ preventScroll: true });
+      }
+
+      tabs.forEach((tab, index) => {
+        tab.addEventListener('click', () => showStep(index));
+        tab.addEventListener('keydown', event => {
+          if (!['ArrowLeft', 'ArrowRight', 'Home', 'End'].includes(event.key)) return;
+          event.preventDefault();
+          let next = index;
+          if (event.key === 'ArrowRight') next = (index + 1) % tabs.length;
+          if (event.key === 'ArrowLeft') next = (index - 1 + tabs.length) % tabs.length;
+          if (event.key === 'Home') next = 0;
+          if (event.key === 'End') next = tabs.length - 1;
+          showStep(next);
+          tabs[next].focus();
+        });
+      });
+
+      target.addEventListener('click', () => {
+        target.classList.add('selected');
+        target.setAttribute('aria-pressed', 'true');
+        feedback.disabled = false;
+        taskButton.disabled = false;
+        selectionHint.textContent = 'Homepage button selected. Edit the example comment, then preview its task.';
+        feedback.focus();
+      });
+
+      feedback.addEventListener('input', () => feedback.setCustomValidity(''));
+      taskButton.addEventListener('click', () => {
+        if (!feedback.value.trim()) {
+          feedback.setCustomValidity('Add an example comment first.');
+          feedback.reportValidity();
+          return;
+        }
+        showStep(1, true);
+      });
+      document.getElementById('preview-reply').addEventListener('click', () => showStep(2, true));
+      document.getElementById('restart-demo').addEventListener('click', () => {
+        feedback.value = defaultFeedback;
+        feedback.setCustomValidity('');
+        feedback.disabled = true;
+        taskButton.disabled = true;
+        target.classList.remove('selected');
+        target.setAttribute('aria-pressed', 'false');
+        selectionHint.textContent = 'Select the highlighted website button to begin.';
+        showStep(0);
+        target.focus({ preventScroll: true });
+      });
+
+      /*
+       * Invitation form: intentionally unconnected in this draft.
+       * Before launch:
+       * - Set a real endpoint and published privacy notice URL.
+       * - Add server-side validation, rate limiting and secure request storage.
+       * - Return JSON { "ok": true } only after accepting the request.
+       * - Test real receipt and error handling. No success is simulated here.
+       */
+      const FORM_ENDPOINT = ''; // Example: '/api/beta-interest'
+      const PRIVACY_URL = '';   // Example: '/privacy'
+      const formReady = Boolean(FORM_ENDPOINT && PRIVACY_URL);
+      const form = document.getElementById('request-form');
+      const fields = document.getElementById('request-fields');
+      const submitButton = document.getElementById('submit-request');
+      const formStatus = document.getElementById('form-status');
+      const agencyInput = document.getElementById('agency');
+      const projectInput = document.getElementById('project');
+      let submitting = false;
+
+      // Without JavaScript, controls remain disabled to prevent accidental posting.
+      fields.disabled = false;
+      document.getElementById('form-preview-note').hidden = formReady;
+      agencyInput.addEventListener('input', () => agencyInput.setCustomValidity(''));
+      projectInput.addEventListener('input', () => projectInput.setCustomValidity(''));
+
+      function showFormStatus(message, isError = false) {
+        formStatus.textContent = message;
+        formStatus.classList.toggle('error', isError);
+        formStatus.hidden = false;
+        formStatus.focus({ preventScroll: true });
+      }
+
+      form.addEventListener('submit', async event => {
+        event.preventDefault();
+        if (submitting) return;
+        if (!formReady) {
+          showFormStatus('This is a draft preview. The form is not connected, so nothing has been sent.');
+          return;
+        }
+        if (!form.reportValidity()) return;
+        if (!projectInput.value.trim()) {
+          projectInput.setCustomValidity('Briefly describe the project or recurring work.');
+          projectInput.reportValidity();
+          return;
+        }
+
+        let website;
+        try {
+          const input = agencyInput.value.trim();
+          website = new URL(/^https?:\/\//i.test(input) ? input : 'https://' + input);
+          if (!['http:', 'https:'].includes(website.protocol) ||
+              !website.hostname.includes('.') || website.username || website.password) {
+            throw new Error('Invalid website URL');
+          }
+        } catch {
+          agencyInput.setCustomValidity('Enter your agency’s website, such as youragency.com.');
+          agencyInput.reportValidity();
+          return;
+        }
+
+        const data = new FormData(form);
+        const payload = {
+          email: String(data.get('email')).trim(),
+          agencyWebsite: website.href,
+          role: data.get('role'),
+          usesClickUp: data.get('usesClickUp'),
+          project: String(data.get('project')).trim(),
+          followUpPermission: data.get('followUpPermission') === 'yes',
+          offer: 'website-feedback-clickup',
+          proposedMonthlyPrice: 79,
+          currency: 'USD',
+          source: 'landing-page'
+        };
+
+        submitting = true;
+        submitButton.disabled = true;
+        submitButton.textContent = 'Sending request…';
+        const controller = new AbortController();
+        const timeout = setTimeout(() => controller.abort(), 15000);
+
+        try {
+          const response = await fetch(FORM_ENDPOINT, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+            credentials: 'same-origin',
+            body: JSON.stringify(payload),
+            signal: controller.signal
+          });
+          const result = await response.json();
+          if (!response.ok || result.ok !== true) throw new Error('Submission not confirmed');
+          form.reset();
+          showFormStatus('Thanks—your request has been received. We’ll follow up about your project and whether the planned workflow fits. There’s nothing to install or pay for at this stage.');
+        } catch {
+          showFormStatus('We couldn’t confirm receipt. Your details are still here. Please contact nick@digitalhawk.ai if the problem continues.', true);
+        } finally {
+          clearTimeout(timeout);
+          submitting = false;
+          submitButton.disabled = false;
+          submitButton.textContent = 'Request a beta invitation ↗';
+        }
+      });
+
+      const privacyDialog = document.getElementById('privacy-dialog');
+      document.querySelectorAll('[data-privacy]').forEach(button => {
+        button.addEventListener('click', () => {
+          if (PRIVACY_URL) window.location.assign(PRIVACY_URL);
+          else privacyDialog.showModal();
+        });
+      });
+      privacyDialog.addEventListener('click', event => {
+        const rect = privacyDialog.getBoundingClientRect();
+        if (event.target === privacyDialog && (
+          event.clientX < rect.left || event.clientX > rect.right ||
+          event.clientY < rect.top || event.clientY > rect.bottom
+        )) privacyDialog.close();
+      });
+    })();
+  </script>
 </body>
 </html>

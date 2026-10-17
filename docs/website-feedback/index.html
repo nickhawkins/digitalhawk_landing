@@ -1,0 +1,1143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Website feedback for ClickUp agencies | Digital Hawk</title>
+  <meta name="description" content="Explore Digital Hawk’s planned website-feedback tool for agencies using ClickUp. An illustrative workflow demo. Proposed price: $79 USD/month.">
+  <meta name="theme-color" content="#113e36">
+  <!-- Draft only: remove when the page is ready for public indexing. -->
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="canonical" href="https://digitalhawk.ai/website-feedback/">
+
+  <style>
+    :root {
+      color-scheme: light;
+      --bg: #f8fafc;
+      --paper: #ffffff;
+      --ink: #0f172a;
+      --muted: #475569;
+      --teal: #113e36;
+      --teal-hover: #195346;
+      --mint: #eaf4ef;
+      --line: #e2e8f0;
+      --field-line: #94a3b8;
+      --focus: #0f766e;
+      --radius: 24px;
+      --shadow: 0 24px 70px -38px rgb(15 23 42 / 25%);
+    }
+
+    * { box-sizing: border-box; }
+    /* --header-h is published by the script; the fallback matches the desktop bar. */
+    html { scroll-behavior: smooth; scroll-padding-top: calc(var(--header-h, 79px) + 12px); }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--ink);
+      font: 16px/1.65 -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+    button, input, select, textarea { font: inherit; }
+    button, a { -webkit-tap-highlight-color: transparent; }
+    button { cursor: pointer; }
+    a { color: inherit; }
+    svg { display: block; flex-shrink: 0; }
+    h1, h2, h3, p { margin-top: 0; }
+    h1, h2, h3 { line-height: 1.15; letter-spacing: -.04em; }
+    h2 { font-size: clamp(2rem, 4vw, 3rem); margin-bottom: 20px; }
+    h3 { font-size: 1.3rem; }
+    p { margin-bottom: 18px; }
+    [hidden] { display: none !important; }
+    :focus-visible { outline: 3px solid var(--focus); outline-offset: 4px; }
+    ::selection { background: #cfe7db; color: var(--teal); }
+    ::placeholder { color: #64748b; opacity: 1; }
+    .wrap { width: min(1120px, calc(100% - 48px)); margin-inline: auto; }
+    .muted { color: var(--muted); }
+    .small { font-size: .875rem; line-height: 1.65; }
+    .eyebrow {
+      display: block;
+      font-size: .8125rem;
+      font-weight: 750;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+    }
+    .section { padding: 96px 0; }
+    .section-heading { max-width: 680px; margin-bottom: 38px; }
+    .section-heading .eyebrow { color: var(--teal); margin-bottom: 14px; }
+    .skip {
+      position: fixed; top: -100px; left: 16px; z-index: 99;
+      background: white; padding: 12px 18px; border-radius: 8px;
+    }
+    .skip:focus { top: 16px; }
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      min-height: 50px;
+      padding: 14px 22px;
+      border: 1px solid transparent;
+      border-radius: 11px;
+      background: var(--teal);
+      color: white;
+      text-align: center;
+      text-decoration: none;
+      font-size: 1rem;
+      font-weight: 700;
+      line-height: 1.4;
+      transition: background .18s, box-shadow .18s;
+    }
+    .button:hover { background: var(--teal-hover); }
+    .button:disabled { opacity: .48; cursor: not-allowed; box-shadow: none; }
+    .button.compact { min-height: 46px; padding: 11px 16px; font-size: .9375rem; }
+    .button.hero-button {
+      min-height: 58px;
+      padding: 17px 28px;
+      box-shadow: 0 7px 18px -7px rgb(17 62 54 / 38%);
+    }
+    .button.hero-button:hover { box-shadow: 0 9px 24px -7px rgb(17 62 54 / 40%); }
+    .arrow { font-size: 1.25em; line-height: 1; }
+    .text-link {
+      padding: 0; border: 0; background: none; color: inherit;
+      text-decoration: underline; text-underline-offset: 4px;
+    }
+
+    /* Quiet navigation; the demo is the primary first action. */
+    .topbar {
+      position: sticky; top: 0; z-index: 20;
+      border-bottom: 1px solid var(--line);
+      background: rgb(248 250 252 / 96%);
+      backdrop-filter: blur(12px);
+    }
+    .nav {
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 24px; min-height: 78px;
+    }
+    .brand {
+      display: inline-flex; align-items: center; gap: 10px;
+      font-size: 1.1rem; font-weight: 800; letter-spacing: -.035em;
+      text-decoration: none; white-space: nowrap;
+    }
+    .brand-mark {
+      width: 34px; height: 34px; padding: 7px; border-radius: 10px;
+      background: var(--teal); color: var(--mint);
+    }
+    .nav-links { display: flex; align-items: center; gap: 26px; }
+    .nav-links a {
+      color: var(--muted); font-size: .875rem; font-weight: 600;
+      text-decoration: none; padding-block: 10px;
+    }
+    .nav-links a:hover { color: var(--teal); }
+    .nav-links .nav-invite {
+      border-left: 1px solid var(--line); padding-left: 26px;
+    }
+
+    /* Hero */
+    .hero { padding: 54px 0 32px; text-align: center; }
+    .audience {
+      display: inline-flex; gap: 9px; align-items: center;
+      padding: 7px 14px; margin-bottom: 26px;
+      background: var(--mint); color: var(--teal);
+      border: 1px solid #d2e5da; border-radius: 100px;
+      font-size: .875rem; font-weight: 650;
+    }
+    .audience::before {
+      content: ""; width: 7px; height: 7px;
+      border-radius: 50%; background: var(--teal);
+    }
+    h1 {
+      max-width: 21ch; margin: 0 auto 25px;
+      font-size: clamp(2.75rem, 6.3vw, 4.8rem);
+      line-height: 1.08; font-weight: 780; letter-spacing: -.06em;
+      text-wrap: balance;
+    }
+    h1 em { color: var(--teal); font-style: normal; }
+    .hero-copy {
+      max-width: 650px; margin: 0 auto 28px;
+      color: var(--muted); font-size: clamp(1.0625rem, 2vw, 1.1875rem);
+    }
+    .hero-note {
+      max-width: 570px; margin: 17px auto 0;
+      color: var(--muted); font-size: .875rem;
+    }
+    .hero-price { margin: 13px 0 0; font-size: .9375rem; }
+
+    /* Local-only interactive concept demo */
+    .demo { padding: 24px 0 18px; }
+    .demo-shell {
+      overflow: hidden; border: 1px solid var(--line);
+      border-radius: var(--radius); background: var(--paper);
+      box-shadow: var(--shadow);
+    }
+    .demo-top {
+      display: flex; align-items: center; justify-content: space-between;
+      flex-wrap: wrap; gap: 12px; padding: 22px 28px;
+      border-bottom: 1px solid var(--line);
+    }
+    .demo-top h2 { margin: 0; font-size: 1.125rem; letter-spacing: -.025em; }
+    .demo-label {
+      padding: 5px 10px; border: 1px solid var(--line);
+      border-radius: 6px; color: var(--muted); font-size: .8125rem;
+    }
+    .tabs {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px;
+      padding: 12px 20px; background: #f1f5f9;
+      border-bottom: 1px solid var(--line);
+    }
+    .tab {
+      padding: 12px 8px; border: 1px solid transparent;
+      border-radius: 9px; background: transparent;
+      color: var(--muted); font-size: .9375rem; font-weight: 650;
+    }
+    .tab span {
+      display: inline-grid; place-items: center;
+      width: 25px; height: 25px; margin-right: 6px;
+      border: 1px solid var(--field-line); border-radius: 50%;
+      font-size: .8125rem;
+    }
+    .tab[aria-selected="true"] {
+      background: white; border-color: var(--line); color: var(--teal);
+      box-shadow: 0 2px 5px rgb(15 23 42 / 4%);
+    }
+    .tab[aria-selected="true"] span {
+      background: var(--teal); color: white; border-color: var(--teal);
+    }
+    .panel { padding: 28px; }
+    .demo-grid {
+      display: grid; grid-template-columns: 1.15fr 1fr;
+      align-items: stretch; gap: 28px; min-height: 375px;
+    }
+    .demo-grid > * { min-width: 0; }
+    .browser {
+      overflow: hidden; border: 1px solid var(--line);
+      border-radius: 14px; background: white;
+    }
+    .browser-chrome {
+      display: flex; align-items: center; gap: 12px;
+      padding: 11px 14px; border-bottom: 1px solid var(--line);
+      background: #f8fafc;
+    }
+    .dots { display: flex; gap: 4px; }
+    .dots i { width: 6px; height: 6px; border-radius: 50%; background: #94a3b8; }
+    .address {
+      margin-inline: auto; color: var(--muted);
+      font-size: .8125rem; overflow-wrap: anywhere;
+    }
+    /* Warm colours belong only to the fictional client's website. */
+    .sample-site {
+      position: relative; overflow: hidden; min-height: 335px;
+      padding: 23px 28px 30px; background: #f6f0e6;
+    }
+    .sample-nav {
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 12px; margin-bottom: 34px; color: #625549; font-size: .75rem;
+    }
+    .sample-logo { font-size: .875rem; font-weight: 800; letter-spacing: -.025em; }
+    .sample-site h3 {
+      position: relative; z-index: 1; max-width: 270px; margin: 0 0 16px;
+      color: #373128; font: 500 clamp(2rem, 3vw, 2.65rem)/1.07 Georgia, serif;
+      letter-spacing: -.05em;
+    }
+    .sample-site > p {
+      position: relative; z-index: 1; max-width: 255px;
+      color: #625549; font-size: .875rem;
+    }
+    .sample-art {
+      position: absolute; right: -12px; bottom: -10px;
+      width: 115px; height: 170px; border-radius: 80px 80px 0 0;
+      background: #d2dbc2; transform: rotate(-13deg);
+    }
+    .sample-art::before {
+      content: ""; position: absolute; left: -32px; top: 25px;
+      width: 78px; height: 78px; border: 16px solid #bba187; border-radius: 50%;
+    }
+    .sample-button {
+      position: relative; z-index: 2; margin-top: 5px;
+      padding: 12px 22px; border: 0; border-radius: 4px;
+      background: #33372c; color: white; font-size: .875rem;
+      outline: 2px dashed var(--teal); outline-offset: 5px;
+    }
+    .sample-button:hover, .sample-button.selected { outline-style: solid; }
+    .sample-button:focus-visible { outline: 3px solid var(--focus); outline-offset: 7px; }
+    .pin {
+      position: absolute; top: -14px; right: -15px;
+      display: grid; place-items: center; width: 26px; height: 26px;
+      border: 2px solid white; border-radius: 50%;
+      background: var(--teal); color: white; font-size: .8125rem; font-weight: 750;
+    }
+    .sample-caption {
+      padding: 10px 14px; border-top: 1px solid var(--line);
+      color: var(--muted); font-size: .8125rem;
+    }
+    .composer {
+      display: flex; flex-direction: column; align-items: flex-start;
+      padding: 24px; border: 1px solid var(--line); border-radius: 14px;
+      background: #f8fafc;
+    }
+    .composer h3 { margin: 11px 0 12px; font-size: 1.5rem; }
+    .composer p { color: var(--muted); font-size: .9375rem; }
+    .composer label { margin-bottom: 7px; font-size: .875rem; font-weight: 700; }
+    .composer textarea { min-height: 105px; margin-bottom: 15px; }
+    textarea, input, select {
+      width: 100%; padding: 12px;
+      border: 1px solid var(--field-line); border-radius: 8px;
+      background: white; color: var(--ink); font-size: 1rem;
+    }
+    textarea { resize: vertical; }
+    /* Applies to the demo comment box and, via the disabled fieldset,
+       to every draft invitation control. */
+    textarea:disabled, input:disabled, select:disabled {
+      background: #f1f5f9; color: #64748b; cursor: not-allowed;
+    }
+    .selection-hint { margin: 16px 0 0 !important; font-size: .8125rem !important; }
+    .task-card {
+      padding: 24px; border: 1px solid var(--line); border-radius: 14px;
+      box-shadow: 0 10px 25px -20px rgb(15 23 42 / 20%);
+    }
+    .task-top {
+      display: flex; align-items: center; justify-content: space-between;
+      flex-wrap: wrap; gap: 10px; margin-bottom: 22px;
+      color: var(--muted); font-size: .8125rem;
+    }
+    .status {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 4px 9px; border-radius: 5px;
+      background: #f1f5f9; color: var(--muted);
+      font-size: .8125rem; font-weight: 700;
+    }
+    .status.resolved { background: var(--mint); color: var(--teal); }
+    .task-card h3 { margin-bottom: 16px; font-size: 1.4rem; }
+    .task-comment {
+      padding: 14px; border: 1px solid var(--line); border-radius: 9px;
+      background: #f8fafc; font-size: .9375rem; overflow-wrap: anywhere;
+    }
+    .task-meta {
+      display: grid; grid-template-columns: 100px 1fr;
+      gap: 9px; margin: 18px 0 0; font-size: .875rem;
+    }
+    .task-meta dt { color: var(--muted); }
+    .task-meta dd { margin: 0; }
+    .attachment { margin-top: 20px; }
+    .attachment-preview {
+      display: flex; align-items: center; justify-content: space-between;
+      flex-wrap: wrap; gap: 15px; padding: 18px; background: #f6f0e6;
+    }
+    .attachment-title { color: #373128; font: 1.15rem/1.3 Georgia, serif; }
+    .attachment-button {
+      padding: 9px 12px; border-radius: 3px;
+      background: #33372c; color: white; font-size: .8125rem; white-space: nowrap;
+    }
+    .explain {
+      display: flex; flex-direction: column; justify-content: center;
+      align-items: flex-start; padding: 16px 10px;
+    }
+    .explain h3 { max-width: 320px; margin: 12px 0 16px; font-size: 1.8rem; }
+    .explain > p { color: var(--muted); font-size: 1rem; }
+    .explain .button { margin-top: 12px; }
+    .restart { margin-top: 16px; }
+    .thread-message { display: flex; gap: 12px; margin-bottom: 19px; }
+    .avatar {
+      display: grid; place-items: center; flex-shrink: 0;
+      width: 32px; height: 32px; border-radius: 9px;
+      background: #f1f5f9; color: var(--muted); font-size: .875rem; font-weight: 750;
+    }
+    .avatar.agency { background: var(--mint); color: var(--teal); }
+    .thread-text { flex: 1; min-width: 0; }
+    .thread-text strong { display: block; margin-bottom: 5px; font-size: .875rem; }
+    .thread-text p {
+      margin-bottom: 0; padding: 12px; border-radius: 0 9px 9px;
+      background: #f8fafc; font-size: .9375rem; overflow-wrap: anywhere;
+    }
+    .thread-text .reply { background: var(--mint); }
+    .privacy-note {
+      margin: 18px 0 0; padding-top: 14px;
+      border-top: 1px dashed #cbd5e1; color: var(--muted); font-size: .875rem;
+    }
+    .demo-foot {
+      padding: 14px 20px; border-top: 1px solid var(--line);
+      background: #f8fafc; color: var(--muted); font-size: .8125rem; text-align: center;
+    }
+
+    /* Problem and planned capabilities */
+    .problem-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; }
+    .problem-copy .eyebrow { margin-bottom: 17px; color: var(--teal); }
+    .problem-copy p { color: var(--muted); }
+    .problem-copy strong { color: var(--ink); }
+    .message-stack { padding: 18px 18px 18px 0; }
+    .message {
+      display: flex; align-items: flex-start; gap: 15px;
+      padding: 20px; border: 1px solid var(--line); border-radius: 14px;
+      background: white; box-shadow: 0 10px 35px -30px rgb(15 23 42 / 25%);
+    }
+    .message + .message { margin-top: 12px; }
+    .message:nth-child(2) { margin-left: 35px; margin-right: -18px; }
+    .message:nth-child(3) { margin-left: 13px; }
+    .message-icon {
+      display: grid; place-items: center; flex-shrink: 0;
+      width: 36px; height: 36px; border-radius: 10px;
+      background: #f1f5f9; color: var(--muted);
+    }
+    .message small {
+      display: block; margin-bottom: 4px;
+      color: var(--muted); font-size: .8125rem;
+    }
+    .message p { margin: 0; font-size: 1rem; }
+    .fit { background: #f1f5f9; border-block: 1px solid var(--line); }
+    .feature-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+    .feature { padding: 28px; border: 1px solid var(--line); border-radius: 16px; background: white; }
+    .feature-icon {
+      display: grid; place-items: center; width: 42px; height: 42px;
+      margin-bottom: 24px; border-radius: 12px;
+      background: var(--mint); color: var(--teal);
+    }
+    .feature h3 { margin-bottom: 13px; }
+    .feature p { margin: 0; color: var(--muted); font-size: 1rem; }
+    .setup {
+      display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between;
+      gap: 16px 22px; margin-top: 30px; padding: 24px 0;
+      border-top: 1px solid #cbd5e1;
+    }
+    .setup strong { font-size: .9375rem; }
+    .setup p {
+      display: flex; flex-wrap: wrap; align-items: center;
+      gap: 12px; margin: 0; color: var(--muted); font-size: .9375rem;
+    }
+    .scope-note { margin: 0; color: var(--muted); font-size: .9375rem; }
+
+    /* A single teal section marks the later conversion point. */
+    .beta {
+      display: grid; grid-template-columns: .9fr 1.1fr;
+      align-items: start; gap: 48px; margin-block: 96px; padding: 44px;
+      border-radius: var(--radius); background: var(--teal); color: white;
+    }
+    .beta .eyebrow { margin: 8px 0 22px; color: #d4e9df; }
+    .beta h2 { max-width: 380px; }
+    .beta-intro { color: #d4e2dc; font-size: 1rem; }
+    .price { display: flex; align-items: baseline; gap: 10px; margin: 28px 0 8px; }
+    .price strong { font-size: 4.5rem; line-height: 1; letter-spacing: -.07em; }
+    .price span { color: #d4e2dc; font-size: 1rem; }
+    .price-note { color: #d4e2dc; font-size: .875rem; }
+    .plan-items { padding: 0; margin: 28px 0; list-style: none; }
+    .plan-items li { display: flex; gap: 10px; align-items: center; margin-bottom: 12px; font-size: 1rem; }
+    .check { color: #d4e9df; font-weight: 800; }
+    .availability {
+      padding-top: 22px; border-top: 1px solid rgb(255 255 255 / 22%);
+      color: #d4e2dc; font-size: .9375rem;
+    }
+    .availability strong { display: block; margin-bottom: 7px; color: white; }
+    .request-card { padding: 28px; border-radius: 16px; background: white; color: var(--ink); }
+    .request-card h3 { margin-bottom: 10px; font-size: 1.5rem; }
+    .request-card > p { color: var(--muted); font-size: .9375rem; }
+    .request-terms {
+      margin: 0 0 16px; padding: 11px 13px; border-radius: 8px;
+      background: var(--mint); color: var(--teal);
+      font-size: .875rem; font-weight: 650;
+    }
+    .fields { min-width: 0; padding: 0; margin: 0; border: 0; }
+    .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px 16px; }
+    .field { min-width: 0; }
+    .field.full { grid-column: 1 / -1; }
+    .field label { display: block; margin-bottom: 7px; font-size: .875rem; font-weight: 700; }
+    .field textarea { min-height: 100px; }
+    .field small { display: block; margin-top: 6px; color: var(--muted); font-size: .8125rem; }
+    .consent {
+      display: flex; align-items: flex-start; gap: 10px;
+      margin: 20px 0; color: var(--muted); font-size: .875rem; line-height: 1.6;
+    }
+    .consent input {
+      flex-shrink: 0; width: 18px; height: 18px;
+      margin: 4px 0 0; accent-color: var(--teal);
+    }
+    .request-card .button { width: 100%; }
+    .form-micro { margin: 13px 0 0; color: var(--muted); font-size: .8125rem; text-align: center; }
+    .preview-note {
+      margin: 0 0 18px; padding: 12px;
+      border: 1px dashed var(--field-line); border-radius: 8px;
+      background: #f8fafc; color: var(--muted); font-size: .875rem;
+    }
+    .form-status {
+      margin-top: 16px; padding: 14px; border-radius: 8px;
+      background: var(--mint); color: var(--teal); font-size: .9375rem;
+    }
+    .form-status.error { background: #fff1f2; color: #9f1239; }
+
+    /* FAQ, footer and draft privacy dialog */
+    .faq { max-width: 780px; margin: 0 auto; padding-bottom: 90px; }
+    .faq .section-heading { margin: 0 auto 30px; text-align: center; }
+    details { padding: 21px 0; border-bottom: 1px solid var(--line); }
+    summary {
+      display: flex; align-items: center; justify-content: space-between; gap: 20px;
+      list-style: none; cursor: pointer; font-size: 1.0625rem; font-weight: 650; line-height: 1.5;
+    }
+    summary::-webkit-details-marker { display: none; }
+    summary::after { content: "+"; flex-shrink: 0; color: var(--muted); font-size: 1.5rem; font-weight: 400; }
+    details[open] summary::after { content: "−"; }
+    details p { padding-right: 28px; margin: 15px 0 0; color: var(--muted); font-size: 1rem; }
+    footer { padding: 32px 0; border-top: 1px solid var(--line); background: white; }
+    .footer-row { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 25px; }
+    .footer-links { display: flex; gap: 25px; color: var(--muted); font-size: .9375rem; }
+    .footer-note { margin: 18px 0 0; color: var(--muted); font-size: .875rem; }
+    dialog {
+      max-width: min(520px, calc(100% - 36px)); padding: 30px;
+      border: 1px solid var(--line); border-radius: 18px;
+      background: white; color: var(--ink); box-shadow: var(--shadow);
+    }
+    dialog::backdrop { background: rgb(15 23 42 / 45%); backdrop-filter: blur(3px); }
+    dialog h2 { font-size: 1.6rem; }
+    dialog p { color: var(--muted); font-size: 1rem; }
+
+    @media (max-width: 920px) {
+      .nav-links { gap: 18px; }
+      .nav-links .nav-invite { padding-left: 18px; }
+      .demo-grid, .problem-grid { gap: 24px; }
+      .feature { padding: 23px; }
+      .beta { grid-template-columns: .85fr 1.15fr; gap: 28px; padding: 32px; }
+      .request-card { padding: 24px; }
+      .form-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 760px) {
+      .wrap { width: min(1120px, calc(100% - 32px)); }
+      .nav { min-height: 70px; gap: 12px; }
+      .nav-links > a:not(.nav-invite) { display: none; }
+      .nav-links .nav-invite { border: 0; padding-left: 0; font-size: .8125rem; }
+      .hero { padding: 30px 0 22px; }
+      .audience { margin-bottom: 18px; }
+      h1 { margin-bottom: 18px; font-size: clamp(2.65rem, 8.5vw, 4rem); }
+      .hero-copy { margin-bottom: 20px; font-size: 1.0625rem; }
+      .demo { padding-top: 14px; }
+      .hero-note { max-width: 370px; }
+      .section { padding: 66px 0; }
+      .demo-top { padding: 20px; }
+      .demo-top h2 { width: 100%; }
+      .tabs { padding: 10px; gap: 4px; }
+      .tab { padding: 11px 4px; font-size: .8125rem; }
+      .tab span { display: grid; margin: 0 auto 7px; }
+      .panel { padding: 16px; }
+      .demo-grid, .problem-grid, .feature-grid { grid-template-columns: 1fr; }
+      .sample-site { min-height: 305px; }
+      .sample-site h3 { font-size: 2.45rem; }
+      .composer { padding: 22px; }
+      .composer textarea { min-height: 86px; }
+      .explain { padding: 12px 7px; }
+      .explain h3 { max-width: none; }
+      .message-stack { max-width: 510px; }
+      .feature-icon { margin-bottom: 18px; }
+      .beta { grid-template-columns: 1fr; gap: 26px; margin-block: 64px; padding: 26px; }
+      .beta h2 { max-width: none; }
+      .price strong { font-size: 3.75rem; }
+      .faq { padding-bottom: 65px; }
+      .footer-row { align-items: flex-start; }
+    }
+    @media (max-width: 400px) {
+      .hero { padding-top: 24px; }
+      .brand { font-size: 1rem; gap: 8px; }
+      .brand-mark { width: 30px; height: 30px; }
+      .nav-links .nav-invite { max-width: 105px; text-align: right; line-height: 1.4; }
+      .beta { padding: 22px 16px; }
+      .request-card { padding: 21px 18px; }
+      .sample-site { padding-inline: 22px; }
+      .sample-nav > span:last-child { font-size: .6875rem; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after { transition: none !important; animation: none !important; }
+    }
+  </style>
+</head>
+<body>
+  <a href="#main" class="skip">Skip to content</a>
+
+  <header class="topbar">
+    <div class="wrap nav">
+      <a class="brand" href="/" aria-label="Digital Hawk homepage">
+        <svg class="brand-mark" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="M3 5h18L12 20l-2-8-7-7Z" fill="currentColor"/>
+          <path d="m10 12 8-5" stroke="#113e36" stroke-width="1.7"/>
+        </svg>
+        Digital Hawk.
+      </a>
+      <nav class="nav-links" aria-label="Main navigation">
+        <a href="#demo">The workflow</a>
+        <a href="#fit">How it fits</a>
+        <a href="#faq">FAQs</a>
+        <a class="nav-invite" href="#beta-request">Request a beta invitation <span aria-hidden="true">↗</span></a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="hero wrap" aria-labelledby="hero-title">
+      <div class="audience">For web agencies using ClickUp</div>
+      <h1 id="hero-title">Website feedback that lands in ClickUp—<em>not another inbox.</em></h1>
+      <p class="hero-copy">
+        Let clients point to exactly what needs changing. Bring their comments,
+        screenshots and page details into ClickUp, where your team already manages the work.
+      </p>
+      <a class="button hero-button" href="#demo">
+        Explore the example workflow <span class="arrow" aria-hidden="true">↗</span>
+      </a>
+      <p class="hero-note">
+        No signup required. Illustrative demo of a prelaunch product—not available to use yet.
+      </p>
+      <p class="hero-price">Proposed plan: <strong>$79 USD/month per agency.</strong></p>
+    </section>
+
+    <section class="demo wrap" id="demo" aria-labelledby="demo-title">
+      <div class="demo-shell">
+        <div class="demo-top">
+          <h2 id="demo-title">From “change this” to a clear task.</h2>
+          <span class="demo-label">Illustrative demo · No live ClickUp connection</span>
+        </div>
+        <div class="tabs" role="tablist" aria-label="Explore the planned workflow">
+          <button class="tab" id="tab-1" type="button" role="tab" aria-selected="true" aria-controls="panel-1" tabindex="0">
+            <span aria-hidden="true">1</span> Point &amp; comment
+          </button>
+          <button class="tab" id="tab-2" type="button" role="tab" aria-selected="false" aria-controls="panel-2" tabindex="-1">
+            <span aria-hidden="true">2</span> A clear task
+          </button>
+          <button class="tab" id="tab-3" type="button" role="tab" aria-selected="false" aria-controls="panel-3" tabindex="-1">
+            <span aria-hidden="true">3</span> Close the loop
+          </button>
+        </div>
+
+        <div class="panel" id="panel-1" role="tabpanel" aria-labelledby="tab-1" tabindex="0">
+          <div class="demo-grid">
+            <div class="browser">
+              <div class="browser-chrome">
+                <span class="dots" aria-hidden="true"><i></i><i></i><i></i></span>
+                <span class="address">sample-project.test / homepage</span>
+              </div>
+              <div class="sample-site">
+                <div class="sample-nav">
+                  <span class="sample-logo">example studio.</span>
+                  <span>Work &nbsp; About &nbsp; Contact</span>
+                </div>
+                <h3>Good ideas deserve a great website.</h3>
+                <p>A fictional client website, just for this demonstration.</p>
+                <button id="sample-target" class="sample-button" type="button" aria-label="Select the sample Let’s talk button to leave feedback" aria-pressed="false">
+                  Let’s talk <span class="pin" aria-hidden="true">1</span>
+                </button>
+                <div class="sample-art" aria-hidden="true"></div>
+              </div>
+              <div class="sample-caption">Sample client view · Click the highlighted button to start</div>
+            </div>
+            <div class="composer">
+              <span class="eyebrow">The client’s view</span>
+              <h3>Point to it.<br>Explain the change.</h3>
+              <p>Pick the highlighted button, then add a comment. No guessing which page or element you mean.</p>
+              <label for="example-feedback">Your example feedback</label>
+              <textarea id="example-feedback" maxlength="500" disabled>Change this wording to “Book a call”.</textarea>
+              <button id="preview-task" class="button compact" type="button" disabled>
+                Preview the ClickUp task <span aria-hidden="true">→</span>
+              </button>
+              <p class="selection-hint" id="selection-hint" role="status">Select the highlighted website button to begin.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="panel" id="panel-2" role="tabpanel" aria-labelledby="tab-2" tabindex="0" hidden>
+          <div class="demo-grid">
+            <div class="task-card">
+              <div class="task-top">
+                <span>EXAMPLE CLICKUP TASK · NOT CONNECTED</span>
+                <span class="status">To do</span>
+              </div>
+              <h3>Homepage button feedback</h3>
+              <div class="task-comment mirror-feedback">Change this wording to “Book a call”.</div>
+              <dl class="task-meta">
+                <dt>Page</dt><dd>Homepage</dd>
+                <dt>Element</dt><dd>“Let’s talk” button</dd>
+                <dt>Submitted by</dt><dd>Example client</dd>
+              </dl>
+              <div class="browser attachment">
+                <div class="browser-chrome"><span class="small muted">Illustrative screenshot attachment</span></div>
+                <div class="attachment-preview">
+                  <span class="attachment-title">Good ideas deserve<br>a great website.</span>
+                  <span class="attachment-button">Let’s talk</span>
+                </div>
+              </div>
+            </div>
+            <div class="explain">
+              <span class="eyebrow">The agency’s view</span>
+              <h3>All the context.<br>Already in the task.</h3>
+              <p>The planned integration would create a ClickUp task with the client’s comment, confirmed screenshot and page details.</p>
+              <p>No copying requests out of email; no extra system to introduce.</p>
+              <button id="preview-reply" class="button" type="button">Preview the client update <span aria-hidden="true">→</span></button>
+            </div>
+          </div>
+        </div>
+
+        <div class="panel" id="panel-3" role="tabpanel" aria-labelledby="tab-3" tabindex="0" hidden>
+          <div class="demo-grid">
+            <div class="task-card">
+              <div class="task-top">
+                <span>EXAMPLE CLIENT CONVERSATION</span>
+                <span class="status resolved">✓ Resolved</span>
+              </div>
+              <div class="thread-message">
+                <span class="avatar" aria-hidden="true">C</span>
+                <div class="thread-text">
+                  <strong>Client</strong>
+                  <p class="mirror-feedback">Change this wording to “Book a call”.</p>
+                </div>
+              </div>
+              <div class="thread-message">
+                <span class="avatar agency" aria-hidden="true">A</span>
+                <div class="thread-text">
+                  <strong>Agency · deliberately shared reply</strong>
+                  <p class="reply">Updated—please take another look.</p>
+                </div>
+              </div>
+              <p class="privacy-note">Only the shared reply and supported status update appear here. Internal agency notes stay separate.</p>
+            </div>
+            <div class="explain">
+              <span class="eyebrow">The follow-up</span>
+              <h3>Keep the client<br>in the loop.</h3>
+              <p>Your developers would make the change. A deliberately shared reply and completion update would let the client know what happened.</p>
+              <p>This example only simulates the conversation—no real task is created.</p>
+              <a href="#beta-request" class="button">Would this fit your agency? <span aria-hidden="true">↗</span></a>
+              <button id="restart-demo" class="text-link small muted restart" type="button">Restart the example</button>
+            </div>
+          </div>
+        </div>
+        <div class="demo-foot">Concept demo only. No data is sent to ClickUp and no website is edited.</div>
+      </div>
+      <noscript>
+        <p class="small muted">Enable JavaScript to explore the example. The planned flow is: client comment → ClickUp task → deliberately shared reply and status update.</p>
+      </noscript>
+    </section>
+
+    <section class="section wrap" aria-labelledby="problem-title">
+      <div class="problem-grid">
+        <div class="problem-copy">
+          <span class="eyebrow">Sound familiar?</span>
+          <h2 id="problem-title">Less “Which page<br>did you mean?”</h2>
+          <p>A client sends a screenshot. Another sends an email. A new request gets buried in yesterday’s message thread.</p>
+          <p>Your team has to work out what each person means, copy the requests into ClickUp and remember where to send the replies.</p>
+          <p><strong>The planned tool keeps the request, its visual context and the client-facing conversation together.</strong></p>
+        </div>
+        <div class="message-stack" role="group" aria-label="Illustrative examples of scattered client feedback">
+          <div class="message">
+            <span class="message-icon" aria-hidden="true">✉</span>
+            <div><small>Email thread</small><p>“Can we change that image?”</p></div>
+          </div>
+          <div class="message">
+            <span class="message-icon" aria-hidden="true">↳</span>
+            <div><small>Another follow-up</small><p>“Which page did you mean?”</p></div>
+          </div>
+          <div class="message">
+            <span class="message-icon" aria-hidden="true">↗</span>
+            <div><small>A separate message</small><p>“Has this been updated yet?”</p></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section fit" id="fit" aria-labelledby="fit-title">
+      <div class="wrap">
+        <div class="section-heading">
+          <span class="eyebrow">The planned product</span>
+          <h2 id="fit-title">A feedback layer.<br>Not another project system.</h2>
+          <p class="muted">The client points to the change. Your team gets the context. The work stays in ClickUp.</p>
+        </div>
+        <div class="feature-grid">
+          <article class="feature">
+            <div class="feature-icon" aria-hidden="true">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="m5 3 14 9-7 1-3 7-4-17Z"/></svg>
+            </div>
+            <h3>For your clients</h3>
+            <p>Point to something on the website, explain the change and see follow-up—without needing a ClickUp account.</p>
+          </article>
+          <article class="feature">
+            <div class="feature-icon" aria-hidden="true">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="4" y="3" width="16" height="18" rx="3"/><path d="m8 9 2 2 5-5M8 15h8M8 18h5"/></svg>
+            </div>
+            <h3>For your team</h3>
+            <p>Receive ClickUp tasks with comments, screenshots and page details. Share only the replies you intend clients to see.</p>
+          </article>
+          <article class="feature">
+            <div class="feature-icon" aria-hidden="true">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="3" y="8" width="18" height="13" rx="2"/><path d="M8 8V4h8v4M3 13h18M10 13v3h4v-3"/></svg>
+            </div>
+            <h3>For your agency</h3>
+            <p>Basic agency branding, guest reviewers and one connected ClickUp workspace in the proposed plan.</p>
+          </article>
+        </div>
+        <div class="setup">
+          <strong>How setup would work</strong>
+          <p><span>Install the website script</span><span aria-hidden="true">→</span><span>Connect ClickUp</span><span aria-hidden="true">→</span><span>Invite client feedback</span></p>
+        </div>
+        <p class="scope-note">Planned for supported review and staging websites. Clients would not need a browser extension. Your team would still make the changes—the tool would not edit websites or fix code automatically.</p>
+      </div>
+    </section>
+
+    <section class="wrap beta" id="beta" aria-labelledby="beta-title">
+      <div>
+        <span class="eyebrow">One agency. One planned subscription.</span>
+        <h2 id="beta-title">Would this fit one of your client projects?</h2>
+        <p class="beta-intro">For agencies already using ClickUp to manage website projects or ongoing client requests.</p>
+        <div class="price"><strong>$79</strong><span>USD / month</span></div>
+        <p class="price-note">Proposed price per agency. No payment at this stage.</p>
+        <ul class="plan-items">
+          <li><span class="check" aria-hidden="true">✓</span> One connected ClickUp workspace</li>
+          <li><span class="check" aria-hidden="true">✓</span> Guest reviewers</li>
+          <li><span class="check" aria-hidden="true">✓</span> Basic agency branding</li>
+        </ul>
+        <div class="availability">
+          <strong>Currently prelaunch.</strong>
+          The product is not available yet, and there is no confirmed launch date.
+          Tell us where you would use it; we’ll follow up to discuss whether the
+          planned workflow fits. No payment is taken.
+        </div>
+      </div>
+      <div class="request-card" id="beta-request">
+        <h3>Request a beta invitation.</h3>
+        <p>Tell us a little about your agency and a project you have in mind.</p>
+        <p class="request-terms">Proposed $79 USD/month per agency. Prelaunch; no confirmed launch date. No payment today.</p>
+        <!-- Unconnected draft: configure the endpoint and privacy notice before launch. -->
+        <form id="request-form" novalidate>
+          <p class="preview-note" id="form-preview-note">Beta requests aren’t open yet. This form is a preview and does not send your details.</p>
+          <fieldset class="fields" id="request-fields" disabled>
+            <div class="form-grid">
+              <div class="field full">
+                <label for="email">Work email</label>
+                <input id="email" name="email" type="email" autocomplete="email" placeholder="you@youragency.com" maxlength="254" required>
+              </div>
+              <div class="field full">
+                <label for="agency">Agency website</label>
+                <input id="agency" name="agencyWebsite" type="text" inputmode="url" autocomplete="url" placeholder="youragency.com" maxlength="300" required>
+              </div>
+              <div class="field">
+                <label for="role">Your role</label>
+                <select id="role" name="role" required>
+                  <option value="">Select your role</option>
+                  <option value="owner">Owner</option>
+                  <option value="project-lead">Delivery / project lead</option>
+                  <option value="other">Other</option>
+                </select>
+              </div>
+              <div class="field">
+                <label for="clickup">Currently use ClickUp?</label>
+                <select id="clickup" name="usesClickUp" required>
+                  <option value="">Please select</option>
+                  <option value="yes">Yes</option>
+                  <option value="no">No</option>
+                </select>
+              </div>
+              <div class="field full">
+                <label for="project">What would you use this for?</label>
+                <textarea id="project" name="project" maxlength="1000" placeholder="A client project or recurring work, and approximate timing…" aria-describedby="project-help" required></textarea>
+                <small id="project-help">No confidential client details, screenshots or passwords.</small>
+              </div>
+            </div>
+            <label class="consent">
+              <input name="followUpPermission" type="checkbox" value="yes" required>
+              <span>Please contact me about this request and the proposed <strong>$79/month</strong> product. This is not a subscription or an unrelated mailing list.</span>
+            </label>
+            <button class="button" type="submit" id="submit-request">Request a beta invitation <span aria-hidden="true">↗</span></button>
+          </fieldset>
+          <p class="form-micro">No subscription commitment.<br><button class="text-link" type="button" data-privacy>Privacy notice</button></p>
+          <p id="form-status" class="form-status" role="status" aria-live="polite" tabindex="-1" hidden></p>
+        </form>
+        <noscript><p class="small muted">JavaScript is required for this form. This draft does not accept requests.</p></noscript>
+      </div>
+    </section>
+
+    <section class="wrap" id="faq" aria-labelledby="faq-title">
+      <div class="faq">
+        <div class="section-heading">
+          <span class="eyebrow">Good questions</span>
+          <h2 id="faq-title">Before you ask.</h2>
+        </div>
+        <details>
+          <summary>Can I use it on a client website now?</summary>
+          <p>Not yet. The interactive example demonstrates the planned experience; it is not a working trial. There is no confirmed launch date.</p>
+        </details>
+        <details>
+          <summary>Would clients need ClickUp or a browser extension?</summary>
+          <p>The planned guest experience would require neither. Your agency would handle the website-script installation and ClickUp connection.</p>
+        </details>
+        <details>
+          <summary>Would clients see our internal conversations?</summary>
+          <p>The planned integration would expose only replies deliberately shared with clients and supported status updates—not ordinary internal ClickUp notes.</p>
+        </details>
+        <details>
+          <summary>Which websites would it support?</summary>
+          <p>The initial scope is review and staging websites where your agency can install the script. Compatibility, project and usage limits would be confirmed before offering access.</p>
+        </details>
+        <details>
+          <summary>Does it make the requested changes?</summary>
+          <p>No. It would capture and organise feedback. Your developers would still implement the changes.</p>
+        </details>
+        <details>
+          <summary>What happens after I request an invitation?</summary>
+          <p>Digital Hawk will follow up about your project and whether the proposed standard workflow fits. An invitation request does not guarantee access or a release date, and no payment is taken at this stage.</p>
+        </details>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <div class="footer-row">
+        <a class="brand" href="/" aria-label="Digital Hawk homepage">Digital Hawk.</a>
+        <div class="footer-links">
+          <a href="mailto:nick@digitalhawk.ai">Contact</a>
+          <button class="text-link" type="button" data-privacy>Privacy notice</button>
+        </div>
+      </div>
+      <p class="footer-note">Independent product concept. Not affiliated with or endorsed by ClickUp.</p>
+    </div>
+  </footer>
+
+  <dialog id="privacy-dialog" aria-labelledby="privacy-title">
+    <h2 id="privacy-title">About this draft</h2>
+    <p>The interactive example runs in your browser. It does not connect to ClickUp, capture other websites or send your example comments anywhere.</p>
+    <p>The invitation form is not connected in this draft. Its contents are not submitted or saved by this page. No advertising or analytics scripts are included.</p>
+    <p>A complete privacy notice and working submission service must be added before accepting real requests.</p>
+    <form method="dialog"><button class="button compact" type="submit">Close</button></form>
+  </dialog>
+
+  <script>
+    (() => {
+      'use strict';
+
+      // Concept demo: local only, with no screenshot capture or external requests.
+      const defaultFeedback = 'Change this wording to “Book a call”.';
+      const tabs = [...document.querySelectorAll('[role="tab"]')];
+      const panels = [...document.querySelectorAll('[role="tabpanel"]')];
+      const feedback = document.getElementById('example-feedback');
+      const target = document.getElementById('sample-target');
+      const taskButton = document.getElementById('preview-task');
+      const selectionHint = document.getElementById('selection-hint');
+      const topbar = document.querySelector('.topbar');
+      const composer = document.querySelector('.composer');
+      const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+      // The sticky header overlaps anchor targets, so publish its measured
+      // height for scroll-padding-top and for the deliberate scrolls below.
+      function syncHeaderHeight() {
+        const height = Math.round(topbar.getBoundingClientRect().height);
+        document.documentElement.style.setProperty('--header-h', height + 'px');
+        return height;
+      }
+      syncHeaderHeight();
+      if ('ResizeObserver' in window) new ResizeObserver(syncHeaderHeight).observe(topbar);
+      else window.addEventListener('resize', syncHeaderHeight);
+
+      // Brings the start of newly revealed content clear of the sticky header.
+      // Does nothing when it is already comfortably in view, so wide screens
+      // stay put while narrow ones follow the step.
+      function revealBelowHeader(element) {
+        if (!element) return;
+        const offset = syncHeaderHeight() + 12;
+        const rect = element.getBoundingClientRect();
+        const lead = Math.min(rect.height, Math.round(window.innerHeight * 0.4));
+        if (rect.top >= offset - 1 && rect.top + lead <= window.innerHeight) return;
+        window.scrollTo({
+          top: Math.max(0, rect.top + window.scrollY - offset),
+          behavior: reduceMotion.matches ? 'instant' : 'smooth'
+        });
+      }
+
+      // Measure only once the browser has laid the new panel out, rather than
+      // guessing with a delay.
+      function afterLayout(callback) {
+        requestAnimationFrame(() => requestAnimationFrame(callback));
+      }
+
+      function syncFeedback() {
+        const text = feedback.value.trim() || defaultFeedback;
+        document.querySelectorAll('.mirror-feedback').forEach(node => {
+          node.textContent = text; // Never insert user-entered text as HTML.
+        });
+      }
+
+      function showStep(index, { focusPanel = false, reveal = false, focusElement = null } = {}) {
+        syncFeedback();
+        const losingFocus = panels.some((panel, i) => i !== index && panel.contains(document.activeElement));
+        tabs.forEach((tab, i) => {
+          const active = i === index;
+          tab.setAttribute('aria-selected', String(active));
+          tab.tabIndex = active ? 0 : -1;
+          panels[i].hidden = !active;
+        });
+        // Never leave focus stranded inside a panel that has just been hidden.
+        if (focusElement) focusElement.focus({ preventScroll: true });
+        else if (focusPanel) panels[index].focus({ preventScroll: true });
+        else if (losingFocus) tabs[index].focus({ preventScroll: true });
+        if (reveal) afterLayout(() => revealBelowHeader(panels[index]));
+      }
+
+      tabs.forEach((tab, index) => {
+        tab.addEventListener('click', () => showStep(index));
+        tab.addEventListener('keydown', event => {
+          if (!['ArrowLeft', 'ArrowRight', 'Home', 'End'].includes(event.key)) return;
+          event.preventDefault();
+          let next = index;
+          if (event.key === 'ArrowRight') next = (index + 1) % tabs.length;
+          if (event.key === 'ArrowLeft') next = (index - 1 + tabs.length) % tabs.length;
+          if (event.key === 'Home') next = 0;
+          if (event.key === 'End') next = tabs.length - 1;
+          showStep(next);
+          tabs[next].focus();
+        });
+      });
+
+      target.addEventListener('click', () => {
+        target.classList.add('selected');
+        target.setAttribute('aria-pressed', 'true');
+        feedback.disabled = false;
+        taskButton.disabled = false;
+        selectionHint.textContent = 'Homepage button selected. Edit the example comment, then preview its task.';
+        feedback.focus({ preventScroll: true });
+        // Narrow screens stack the comment box below the sample site, so show it
+        // rather than letting the on-screen keyboard decide where the page lands.
+        afterLayout(() => revealBelowHeader(composer));
+      });
+
+      // Typing only clears validation. Mirroring and scrolling happen on an
+      // explicit step change, never on every keystroke.
+      feedback.addEventListener('input', () => feedback.setCustomValidity(''));
+      taskButton.addEventListener('click', () => {
+        if (!feedback.value.trim()) {
+          feedback.setCustomValidity('Add an example comment first.');
+          feedback.reportValidity();
+          return;
+        }
+        showStep(1, { focusPanel: true, reveal: true });
+      });
+      document.getElementById('preview-reply').addEventListener('click', () => showStep(2, { focusPanel: true, reveal: true }));
+      document.getElementById('restart-demo').addEventListener('click', () => {
+        feedback.value = defaultFeedback;
+        feedback.setCustomValidity('');
+        feedback.disabled = true;
+        taskButton.disabled = true;
+        target.classList.remove('selected');
+        target.setAttribute('aria-pressed', 'false');
+        selectionHint.textContent = 'Select the highlighted website button to begin.';
+        showStep(0, { reveal: true, focusElement: target });
+      });
+
+      /*
+       * Invitation form: intentionally unconnected in this draft.
+       * Before launch:
+       * - Set a real endpoint and published privacy notice URL.
+       * - Add server-side validation, rate limiting and secure request storage.
+       * - Return JSON { "ok": true } only after accepting the request.
+       * - Test real receipt and error handling. No success is simulated here.
+       */
+      const FORM_ENDPOINT = ''; // Example: '/api/beta-interest'
+      const PRIVACY_URL = '';   // Example: '/privacy'
+      const formReady = Boolean(FORM_ENDPOINT && PRIVACY_URL);
+      const form = document.getElementById('request-form');
+      const fields = document.getElementById('request-fields');
+      const submitButton = document.getElementById('submit-request');
+      const formStatus = document.getElementById('form-status');
+      const agencyInput = document.getElementById('agency');
+      const projectInput = document.getElementById('project');
+      let submitting = false;
+
+      // Controls stay disabled until both settings are configured, so nobody
+      // fills in a form that cannot submit. They also stay disabled without
+      // JavaScript, which prevents accidental posting.
+      fields.disabled = !formReady;
+      document.getElementById('form-preview-note').hidden = formReady;
+      agencyInput.addEventListener('input', () => agencyInput.setCustomValidity(''));
+      projectInput.addEventListener('input', () => projectInput.setCustomValidity(''));
+
+      function showFormStatus(message, isError = false) {
+        formStatus.textContent = message;
+        formStatus.classList.toggle('error', isError);
+        formStatus.hidden = false;
+        formStatus.focus({ preventScroll: true });
+      }
+
+      form.addEventListener('submit', async event => {
+        event.preventDefault();
+        if (submitting) return;
+        if (!formReady) {
+          showFormStatus('This is a draft preview. The form is not connected, so nothing has been sent.');
+          return;
+        }
+        if (!form.reportValidity()) return;
+        if (!projectInput.value.trim()) {
+          projectInput.setCustomValidity('Briefly describe the project or recurring work.');
+          projectInput.reportValidity();
+          return;
+        }
+
+        let website;
+        try {
+          const input = agencyInput.value.trim();
+          website = new URL(/^https?:\/\//i.test(input) ? input : 'https://' + input);
+          if (!['http:', 'https:'].includes(website.protocol) ||
+              !website.hostname.includes('.') || website.username || website.password) {
+            throw new Error('Invalid website URL');
+          }
+        } catch {
+          agencyInput.setCustomValidity('Enter your agency’s website, such as youragency.com.');
+          agencyInput.reportValidity();
+          return;
+        }
+
+        const data = new FormData(form);
+        const payload = {
+          email: String(data.get('email')).trim(),
+          agencyWebsite: website.href,
+          role: data.get('role'),
+          usesClickUp: data.get('usesClickUp'),
+          project: String(data.get('project')).trim(),
+          followUpPermission: data.get('followUpPermission') === 'yes',
+          offer: 'website-feedback-clickup',
+          proposedMonthlyPrice: 79,
+          currency: 'USD',
+          source: 'landing-page'
+        };
+
+        submitting = true;
+        submitButton.disabled = true;
+        submitButton.textContent = 'Sending request…';
+        const controller = new AbortController();
+        const timeout = setTimeout(() => controller.abort(), 15000);
+
+        try {
+          const response = await fetch(FORM_ENDPOINT, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+            credentials: 'same-origin',
+            body: JSON.stringify(payload),
+            signal: controller.signal
+          });
+          const result = await response.json();
+          if (!response.ok || result.ok !== true) throw new Error('Submission not confirmed');
+          form.reset();
+          showFormStatus('Thanks—your request has been received. We’ll follow up about your project and whether the planned workflow fits. There’s nothing to install or pay for at this stage.');
+        } catch {
+          showFormStatus('We couldn’t confirm receipt. Your details are still here. Please contact nick@digitalhawk.ai if the problem continues.', true);
+        } finally {
+          clearTimeout(timeout);
+          submitting = false;
+          submitButton.disabled = false;
+          submitButton.textContent = 'Request a beta invitation ↗';
+        }
+      });
+
+      const privacyDialog = document.getElementById('privacy-dialog');
+      document.querySelectorAll('[data-privacy]').forEach(button => {
+        button.addEventListener('click', () => {
+          if (PRIVACY_URL) window.location.assign(PRIVACY_URL);
+          else privacyDialog.showModal();
+        });
+      });
+      privacyDialog.addEventListener('click', event => {
+        const rect = privacyDialog.getBoundingClientRect();
+        if (event.target === privacyDialog && (
+          event.clientX < rect.left || event.clientX > rect.right ||
+          event.clientY < rect.top || event.clientY > rect.bottom
+        )) privacyDialog.close();
+      });
+    })();
+  </script>
+</body>
+</html>
